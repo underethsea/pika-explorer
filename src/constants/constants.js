@@ -48,6 +48,7 @@ const PRODUCTS = {
   23: { name: "DYDX" },
   24: { name: "FTM" },
   25: { name: "SAND" },
+  26: { name: "ARB" },
 };
 // 16: {
 //   symbol: "ETH",

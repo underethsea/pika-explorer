@@ -3,6 +3,10 @@
   let sortOrder = null
   import { GetProduct, Commas, EightLessDecimals} from "../utils/utils.js"
   import EventModal from "../components/EventModal.svelte";
+  import Loading from "../components/Loading.svelte"
+  import { onMount } from 'svelte';
+
+
 
   let selectedEvent = null
   let modalIsOpen = false
@@ -11,6 +15,7 @@
   selectedEvent = event;
   modalIsOpen = true;
 }
+
 
   const columns = [
     // { label: "Transaction Hash", key: "transactionHash" },
@@ -69,7 +74,7 @@
   @import '../styles/event-table.css';
 </style>
 
-{#if events.length > 0}
+ 
 <center>
   <h2>Recent Pika Protocol Transactions</h2>
   <table>
@@ -101,21 +106,11 @@
                 ></td
               >
             {:else if column.key === "type"}
-              <td style="text-align: {column.align || 'left'}"  on:click={() => openModal(event)}
-                >
-                
-                <!-- <a
-                  href="https:/optimistic.etherscan.io/tx/{event[
-                    'transactionHash'
-                  ]}"
-                  target="_blank"
-                > -->
+              <td class="type-column" style="text-align: {column.align || 'left'}"  on:click={() => openModal(event)}>
+               <span class="type-column">
                   {event["type"]}
-                  <!-- </a
-                > -->
-                
-                </td
-              >
+                </span>
+                </td>
             {:else}
               <td style="text-align: {column.align || 'left'}"
                 >{event[column.key]}</td
@@ -130,6 +125,4 @@
 <EventModal event={selectedEvent} isOpen={modalIsOpen} on:close={() => modalIsOpen = false}/>
 
 
-{:else}
-  <p>Loading...</p>
-{/if}
+

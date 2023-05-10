@@ -1,5 +1,13 @@
 
-
+.loading-spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.type-column{
+  cursor:pointer;
+}
   table a {
     color: rgb(171, 171, 249);
     text-decoration: none; 

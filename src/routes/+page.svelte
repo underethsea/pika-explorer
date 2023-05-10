@@ -6,6 +6,8 @@
   import { FILTERS } from "../constants/filters.js";
   import { PROVIDER } from "../constants/providers.js";
   import { EVENTS } from "../constants/constants.js";
+  import Loading from "../components/Loading.svelte"
+
 
   let events = [];
 
@@ -98,5 +100,8 @@
 {#if events.length > 0}
   <EventTable {events} />
 {:else}
-  <p>Loading...</p>
+ 
+
+<div class="loading-spinner-container">
+  <Loading size="128px" />  </div>
 {/if}

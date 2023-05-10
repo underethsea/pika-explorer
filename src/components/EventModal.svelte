@@ -19,11 +19,14 @@
   <div class="modal">
     <div class="modal-content">
       <span class="close" on:click={handleClose}>&times;</span>
-      <h2>{event.type} {event.product} {event.leverage}</h2>
+      <h2>{event.type} {event?.entryPrice < event?.price ? "SHORT" : event?.entryPrice > event?.price ? "LONG" : ""} {event.product} {event.leverage}</h2>
       <div class="grid">
+       
+        {#if event.isLong === true || event.isLong === false}
         <div>Margin</div>
         <div style="text-align: right;">{Commas(event.margin)}</div>
-        {#if event.isLong === true || event.isLong === false}
+        <div>Size</div>
+        <div style="text-align: right;">{Commas(event.size)}</div>
         <div>Price</div>
         <div style="text-align: right;">{Commas(EightLessDecimalsPrecise(event.price))}</div>
         {#if parseFloat(event.oraclePrice/1e8).toFixed(2) !== parseFloat(event.price/1e8).toFixed(2)}
@@ -32,12 +35,23 @@
         <div style="text-align: right;">{Commas(EightLessDecimalsPrecise(event.oraclePrice))}</div>
         {/if}
         {:else}
+        <div>Margin</div>
+        <div style="text-align: right;">{Commas(event.margin)}</div>
+        <div>Size</div>
+        <div style="text-align: right;">{Commas(event.size)}</div>
+   
         <div>Entry Price</div>
         <div style="text-align: right;">{Commas(EightLessDecimalsPrecise(event.entryPrice))}</div>
+        
         <div>Close Price</div>
         <div style="text-align: right;">{Commas(EightLessDecimalsPrecise(event.price))}</div>
+    
         <div>PNL</div>
         <div style="text-align: right;">{Commas(EightLessDecimals(event.pnl))}</div>
+        {#if event.fundingPayment / 1e8 >= 1}
+        <div>Funding Payment</div>
+        <div style="text-align: right;">{Commas(EightLessDecimals(event.fundingPayment))}</div>
+        {/if}
         {/if}
       </div>
     </div>
@@ -79,8 +93,8 @@
       color: rgb(217, 215, 215);
       margin: 15% auto;
       padding: 20px;
-      border: 1px solid #888;
-      width: 300px;
+      border: 1px solid #e8d533;
+      width: 332px;
       border-radius:15px;
 
     }
