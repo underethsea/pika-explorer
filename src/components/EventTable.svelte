@@ -116,10 +116,8 @@ function timeAgo(time) {
             {#if column.key === "owner"}
               <td style="text-align: {column.align || 'left'}"
                 >
-                <a
-                  href="https:/optimistic.etherscan.io/address/{event['owner']}"
-                  target="_blank"
-                >
+                <a href={"https://optimistic.etherscan.io/address/" + event['owner']} target="_blank">
+
                   {event[column.key].slice(0, 8)}</a
                 ></td
               >
