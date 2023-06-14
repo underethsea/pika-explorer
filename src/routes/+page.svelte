@@ -35,6 +35,7 @@
     productId
     wasLiquidated
     tradeFee
+    txHash
   }
 }`
 let trades

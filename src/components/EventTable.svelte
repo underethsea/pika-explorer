@@ -22,7 +22,7 @@
     { label: "Time", key: "timestamp"},
     { label: "Trade", key: "type" },
     { label: "Product", key: "product" },
-    { label: "User", key: "owner" },
+    // { label: "User", key: "owner" },
     { label: "Margin", key: "margin", align: "right" },
     { label: "Leverage", key: "leverage", align: "right" },
     { label: "Size", key: "size", align: "right" },
@@ -113,15 +113,7 @@ function timeAgo(time) {
         <tr>
         
             {#each columns as column}
-            {#if column.key === "owner"}
-              <td style="text-align: {column.align || 'left'}"
-                >
-                <a href={"https://optimistic.etherscan.io/address/" + event['owner']} target="_blank">
-
-                  {event[column.key].slice(0, 8)}</a
-                ></td
-              >
-            {:else if column.key === "type"}
+            {#if column.key === "type"}
               <td class="type-column" style="text-align: {column.align || 'left'}"  on:click={() => openModal(event)}>
                <span class="type-column">
                 <img src="arrow.svg" style="width: 12px"/> {event["type"]} 
