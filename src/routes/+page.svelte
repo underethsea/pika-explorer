@@ -16,10 +16,9 @@
   const subgraphURL = "https://api.thegraph.com/subgraphs/name/ethandev0/pikaperpv3_optimism"
   // const subgraphURL = "https://api.thegraph.com/subgraphs/name/pooltogether/v5-eth-goerli-twab-controller"
   async function fetchGraphEvents() {
-    console.log("graph events fetching")
-    console.log("one day ago",oneDayAgo)
+ 
     const queryString = `{
-  transactions(first: 200,
+  transactions(first: 420,
     where: { timestamp_gt: ${oneDayAgo} }
     orderBy: timestamp
     orderDirection: desc
@@ -43,7 +42,7 @@ let trades
       const response = await axios.post(subgraphURL, { query: queryString });
       trades = response.data.data.transactions;
 
- console.log("trades",trades)
+//  console.log("trades",trades)
     } catch (error) {
       console.error("GraphQL query error:", error);
     }

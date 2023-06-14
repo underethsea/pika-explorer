@@ -26,6 +26,8 @@
     { label: "Margin", key: "margin", align: "right" },
     { label: "Leverage", key: "leverage", align: "right" },
     { label: "Size", key: "size", align: "right" },
+    { label: "PnL", key: "pnl" },
+
   ];
 
 
@@ -100,10 +102,12 @@ function timeAgo(time) {
       <tr>
         <!-- <th>details</th> -->
         {#each columns as column}
+        {#if column.label !== "PnL"}
           <th
             style="text-align: {column.align || 'left'}"
             >{column.label}</th
           >
+          {/if}
         {/each}
       </tr>
     </thead>
@@ -120,7 +124,16 @@ function timeAgo(time) {
                 </span>
                 </td>
                 
-
+                {:else if column.key === "pnl"}
+                <td style="text-align: {column.align || 'right'}">
+                  {#if event.pnl !== null}
+                  {#if parseInt(event.pnl) < 0}
+                    <img src="red.svg" style="position: relative; left: -12px;"/>
+                  {:else}
+                    <img src="green.svg" style="position: relative; left: -12px;"/>
+                  {/if}
+                {/if}
+                          </td>
             {:else}
               <td style="text-align: {column.align || 'left'}"
                 >{event[column.key]}</td
