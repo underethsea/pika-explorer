@@ -19,10 +19,10 @@
   <div class="modal">
     <div class="modal-content">
       <span class="close" on:click={handleClose}>&times;</span>
-      <h2>{event.type} {event?.entryPrice < event?.price ? "SHORT" : event?.entryPrice > event?.price ? "LONG" : ""} {event.product} {event.leverage}</h2>
+      <h2>{event.type} {event.type === "LIQUIDATED" || event.type === "CLOSE" ? event.isLong ? "LONG" : "SHORT" : ""} {event.product} {event.leverage}</h2>
       <div class="grid">
        
-        {#if event.isLong === true || event.isLong === false}
+        {#if event.type === "LONG" || event.type === "SHORT"}
         <div>Margin</div>
         <div style="text-align: right;">{Commas(event.margin)}</div>
         <div>Size</div>
@@ -30,9 +30,9 @@
         <div>Price</div>
         <div style="text-align: right;">{Commas(EightLessDecimalsPrecise(event.price))}</div>
         {#if parseFloat(event.oraclePrice/1e8).toFixed(2) !== parseFloat(event.price/1e8).toFixed(2)}
-        <div>Oracle Price</div>
+        <!-- <div>Oracle Price</div>
         
-        <div style="text-align: right;">{Commas(EightLessDecimalsPrecise(event.oraclePrice))}</div>
+        <div style="text-align: right;">{Commas(EightLessDecimalsPrecise(event.oraclePrice))}</div> -->
         {/if}
         {:else}
         <div>Margin</div>
@@ -40,8 +40,8 @@
         <div>Size</div>
         <div style="text-align: right;">{Commas(event.size)}</div>
    
-        <div>Entry Price</div>
-        <div style="text-align: right;">{Commas(EightLessDecimalsPrecise(event.entryPrice))}</div>
+        <!-- <div>Entry Price</div>
+        <div style="text-align: right;">{Commas(EightLessDecimalsPrecise(event.price))}</div> -->
         
         <div>Close Price</div>
         <div style="text-align: right;">{Commas(EightLessDecimalsPrecise(event.price))}</div>

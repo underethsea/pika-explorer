@@ -19,9 +19,10 @@
 
   const columns = [
     // { label: "Transaction Hash", key: "transactionHash" },
+    { label: "Time", key: "timestamp"},
     { label: "Trade", key: "type" },
     { label: "Product", key: "product" },
-    { label: "User", key: "user" },
+    { label: "User", key: "owner" },
     { label: "Margin", key: "margin", align: "right" },
     { label: "Leverage", key: "leverage", align: "right" },
     { label: "Size", key: "size", align: "right" },
@@ -33,6 +34,22 @@
     const leverageNum = EightLessDecimals(leverage);
     return marginNum * leverageNum;
   };
+  const intervals = [
+  { label: 'year', seconds: 31536000 },
+  { label: 'month', seconds: 2592000 },
+  { label: 'day', seconds: 86400 },
+  { label: 'hour', seconds: 3600 },
+  { label: 'minute', seconds: 60 },
+  { label: 'second', seconds: 1 }
+];
+
+function timeAgo(time) {
+  const seconds = Math.floor((Date.now()/1000) - time)
+  const interval = intervals.find(i => i.seconds < seconds);
+  const count = Math.floor(seconds / interval.seconds);
+  return `${count} ${interval.label}${count !== 1 ? 's' : ''} ago`;
+}
+
 
   const formatEvents = () => {
     return events.map((event) => {
@@ -44,6 +61,7 @@
         product: GetProduct(event.productId),
         margin: Commas(EightLessDecimals(margin)),
         leverage: EightLessDecimals(leverage) + "x",
+        timestamp: timeAgo(event.timestamp),
         size: Commas(size),
       };
     });
@@ -95,11 +113,11 @@
         <tr>
         
             {#each columns as column}
-            {#if column.key === "user"}
+            {#if column.key === "owner"}
               <td style="text-align: {column.align || 'left'}"
                 >
                 <a
-                  href="https:/optimistic.etherscan.io/address/{event['user']}"
+                  href="https:/optimistic.etherscan.io/address/{event['owner']}"
                   target="_blank"
                 >
                   {event[column.key].slice(0, 8)}</a
@@ -108,9 +126,11 @@
             {:else if column.key === "type"}
               <td class="type-column" style="text-align: {column.align || 'left'}"  on:click={() => openModal(event)}>
                <span class="type-column">
-                  {event["type"]}
+                <img src="arrow.svg" style="width: 12px"/> {event["type"]} 
                 </span>
                 </td>
+                
+
             {:else}
               <td style="text-align: {column.align || 'left'}"
                 >{event[column.key]}</td
