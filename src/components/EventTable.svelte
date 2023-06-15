@@ -1,7 +1,7 @@
 <script>
   export let events = [];
   let sortOrder = null
-  import { GetProduct, Commas, EightLessDecimals} from "../utils/utils.js"
+  import { GetProductImage, GetProduct, Commas, EightLessDecimals} from "../utils/utils.js"
   import EventModal from "../components/EventModal.svelte";
   import Loading from "../components/Loading.svelte"
   import { onMount } from 'svelte';
@@ -19,9 +19,13 @@
 
   const columns = [
     // { label: "Transaction Hash", key: "transactionHash" },
-    { label: "Time", key: "timestamp"},
+    { label: "", key: "logo"},
+
+    { label: "Ago", key: "timestamp"},
+
     { label: "Trade", key: "type" },
-    { label: "Product", key: "product" },
+
+    // { label: "Product", key: "product" },
     // { label: "User", key: "owner" },
     { label: "Margin", key: "margin", align: "right" },
     { label: "Leverage", key: "leverage", align: "right" },
@@ -37,19 +41,27 @@
     return marginNum * leverageNum;
   };
   const intervals = [
-  { label: 'year', seconds: 31536000 },
-  { label: 'month', seconds: 2592000 },
-  { label: 'day', seconds: 86400 },
-  { label: 'hour', seconds: 3600 },
-  { label: 'minute', seconds: 60 },
-  { label: 'second', seconds: 1 }
+  { label: 'y', seconds: 31536000 },
+  { label: 'm', seconds: 2592000 },
+  { label: 'd', seconds: 86400 },
+  { label: 'h', seconds: 3600 },
+  { label: 'm', seconds: 60 },
+  { label: 's', seconds: 1 }
 ];
 
 function timeAgo(time) {
   const seconds = Math.floor((Date.now()/1000) - time)
   const interval = intervals.find(i => i.seconds < seconds);
   const count = Math.floor(seconds / interval.seconds);
-  return `${count} ${interval.label}${count !== 1 ? 's' : ''} ago`;
+ let timeA = `${count}${interval.label}`;
+ timeA = timeA.replace(" minutes", "m")
+ timeA = timeA.replace(" hours","h")
+
+ timeA = timeA.replace(" hour","h")
+ timeA = timeA.replace(" seconds","s")
+ timeA = timeA.replace(" ago","")
+ return timeA
+
 }
 
 
@@ -60,7 +72,7 @@ function timeAgo(time) {
 
       return {
         ...event,
-        product: GetProduct(event.productId),
+        productSymbol: GetProduct(event.productId),
         margin: Commas(EightLessDecimals(margin)),
         leverage: EightLessDecimals(leverage) + "x",
         timestamp: timeAgo(event.timestamp),
@@ -115,22 +127,28 @@ function timeAgo(time) {
     <tbody>
       {#each formatEvents() as event}
         <tr>
-        
+     
             {#each columns as column}
             {#if column.key === "type"}
-              <td class="type-column" style="text-align: {column.align || 'left'}"  on:click={() => openModal(event)}>
+            <td class="type-column" style="text-align: {column.align || 'left'}"  on:click={() => openModal(event)}>
+             
+       
+          
+          
                <span class="type-column">
-                <img src="arrow.svg" style="width: 12px"/> 
+               
                 {event["type"]} 
                   {#if !event.wasLiquidated && event.pnl !== null}
                   {#if parseInt(event.pnl) < 0}
                     <img src="red.svg"/>
+                   
                   {:else}
                     <img src="green.svg"/>
                   {/if}
                 {/if} 
                 </span>
                 </td>
+            
                 
                 <!-- {:else if column.key === "pnl"}
                 <td style="text-align: {column.align || 'right'}">
@@ -141,7 +159,8 @@ function timeAgo(time) {
                     <img src="green.svg" style="position: relative; left: -12px;"/>
                   {/if}
                 {/if} -->
-                          
+                {:else if column.key==="logo"}
+                <img src={GetProductImage(event.productId)} style="width:20px;padding-top:4px;"/>
             {:else}
               <td style="text-align: {column.align || 'left'}"
                 >{event[column.key]}</td

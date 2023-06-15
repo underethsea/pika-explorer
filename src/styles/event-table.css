@@ -24,7 +24,7 @@
     font-family: "Inter-var", sans-serif;
     color: #ededf2;
     font-weight: 400;
-    font-size: 15px;
+    font-size: 16px;
     border: 2px solid rgb(9, 0, 0) !important;
   }
   table {
@@ -40,11 +40,14 @@
   tr {
     background-color: black;
   }
+  .test {
+    color:rgb(39, 195, 39)
+  }
   th,
   td {
-    padding: 8px 10px 8px 10px;
-    text-align: left;
-  }
+    padding: 4px 7px 4px 7px;
+    display:table-cell; 
+    vertical-align:middle;  }
 
   /* tbody tr:nth-child(even) {
     background-color: #282c34;

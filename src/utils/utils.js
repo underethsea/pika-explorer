@@ -17,7 +17,21 @@ import { PRODUCTS } from "../constants/constants.js";
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
+  export const GetProductImage = (productId) => {
+    console.log("product id for image",productId)
+    if (
+      PRODUCTS[productId.toString()] &&
+      typeof PRODUCTS[productId.toString()].name !== "undefined"
+    ) {
+      let returnUrl = PRODUCTS[productId.toString()]?.image
+      console.log(returnUrl)
+      return returnUrl
+    } else {
+      return productId;
+    }
+  }
   export const GetProduct = (productId) => {
+    
     if (
       PRODUCTS[productId.toString()] &&
       typeof PRODUCTS[productId.toString()].name !== "undefined"
