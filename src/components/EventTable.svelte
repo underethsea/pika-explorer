@@ -26,7 +26,7 @@
     { label: "Margin", key: "margin", align: "right" },
     { label: "Leverage", key: "leverage", align: "right" },
     { label: "Size", key: "size", align: "right" },
-    { label: "PnL", key: "pnl" },
+    // { label: "PnL", key: "pnl" },
 
   ];
 
@@ -120,11 +120,19 @@ function timeAgo(time) {
             {#if column.key === "type"}
               <td class="type-column" style="text-align: {column.align || 'left'}"  on:click={() => openModal(event)}>
                <span class="type-column">
-                <img src="arrow.svg" style="width: 12px"/> {event["type"]} 
+                <img src="arrow.svg" style="width: 12px"/> 
+                {event["type"]} 
+                  {#if !event.wasLiquidated && event.pnl !== null}
+                  {#if parseInt(event.pnl) < 0}
+                    <img src="red.svg"/>
+                  {:else}
+                    <img src="green.svg"/>
+                  {/if}
+                {/if} 
                 </span>
                 </td>
                 
-                {:else if column.key === "pnl"}
+                <!-- {:else if column.key === "pnl"}
                 <td style="text-align: {column.align || 'right'}">
                   {#if event.pnl !== null}
                   {#if parseInt(event.pnl) < 0}
@@ -132,8 +140,8 @@ function timeAgo(time) {
                   {:else}
                     <img src="green.svg" style="position: relative; left: -12px;"/>
                   {/if}
-                {/if}
-                          </td>
+                {/if} -->
+                          
             {:else}
               <td style="text-align: {column.align || 'left'}"
                 >{event[column.key]}</td
