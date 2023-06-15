@@ -20,7 +20,7 @@
     <div class="modal-content">
       <span class="close" on:click={handleClose}>&times;</span>
       <h2>{event.type} {event.type === "LIQUIDATED" || event.type === "CLOSE" ? event.isLong ? "LONG" : "SHORT" : ""}
-         {event.product} {event.leverage} 
+         {event.productSymbol} {event.leverage} 
         &nbsp;&nbsp;<a href={"https://optimistic.etherscan.io/tx/" + event.txHash}><img src="etherscan.svg" style="width:18px"/></a></h2>
       <div class="grid">
        
