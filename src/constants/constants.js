@@ -49,6 +49,7 @@ const PRODUCTS = {
   24: { name: "FTM" , image:"https://app.pikaprotocol.com/images/ftm.png"},
   25: { name: "SAND", image:"https://app.pikaprotocol.com/images/sand.png" },
   26: { name: "ARB",image:"https://app.pikaprotocol.com/images/arbitrum.png" },
+  27: {name: "PEPE", image:"https://assets.bit2me.com/assets/images/crypto-icons/v7/pepe-circle-solid-default.svg"}
 };
 // 16: {
 //   symbol: "ETH",

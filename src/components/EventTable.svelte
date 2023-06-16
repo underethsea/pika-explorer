@@ -121,6 +121,7 @@ function timeAgo(time) {
           >
           {/if}
         {/each}
+        <th></th>
       </tr>
     </thead>
     
@@ -161,12 +162,17 @@ function timeAgo(time) {
                 {/if} -->
                 {:else if column.key==="logo"}
                 <img src={GetProductImage(event.productId)} style="width:20px;padding-top:4px;"/>
-            {:else}
+                  {:else if column.key==="size"}
+                  <td>
+                  {event.size}
+                </td><td><img src="/arrow.svg" style="width:12px;position:relative;left:-12px;cursor:pointer;"  on:click={() => openModal(event)}/></td>
+                {:else}
               <td style="text-align: {column.align || 'left'}"
                 >{event[column.key]}</td
               >
             {/if}
           {/each}
+
         </tr>
       {/each}
     </tbody>

@@ -21,7 +21,7 @@
       <span class="close" on:click={handleClose}>&times;</span>
       <h2>{event.type} {event.type === "LIQUIDATED" || event.type === "CLOSE" ? event.isLong ? "LONG" : "SHORT" : ""}
          {event.productSymbol} {event.leverage} 
-        &nbsp;&nbsp;<a href={"https://optimistic.etherscan.io/tx/" + event.txHash}><img src="etherscan.svg" style="width:18px"/></a></h2>
+        &nbsp;&nbsp;<a href={"https://optimistic.etherscan.io/tx/" + event.txHash} target="_blank"><img src="etherscan.svg" style="width:18px"/></a></h2>
       <div class="grid">
        
         {#if event.type === "LONG" || event.type === "SHORT"}
