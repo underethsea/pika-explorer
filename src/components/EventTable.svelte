@@ -6,7 +6,11 @@
   import Loading from "../components/Loading.svelte"
   import { onMount } from 'svelte';
 
+  let showAddress = false;
 
+function toggleDiv() {
+  showAddress = !showAddress;
+}
 
   let selectedEvent = null
   let modalIsOpen = false
@@ -108,7 +112,10 @@ function timeAgo(time) {
 
  
 <center>
-  <h2>Recent Pika Protocol Transactions</h2>
+  <h2>Recent Pika Protocol Transactions <button on:click={toggleDiv} style="background-color: transparent; border: none;">
+    AD
+  </button>
+  </h2>
   <table>
     <thead>
       <tr>
@@ -120,8 +127,10 @@ function timeAgo(time) {
             >{column.label}</th
           >
           {/if}
+         
         {/each}
-        <th></th>
+        <th></th><th></th>
+        
       </tr>
     </thead>
     
@@ -171,7 +180,11 @@ function timeAgo(time) {
                 >{event[column.key]}</td
               >
             {/if}
+            
           {/each}
+          {#if showAddress}
+  <th><a href={"https://optimistic.etherscan.io/address/"+event.owner} target="_blank">{event.owner.substring(0, 7)}</a></th>
+{/if}
 
         </tr>
       {/each}
