@@ -18,13 +18,13 @@ import { PRODUCTS } from "../constants/constants.js";
   };
 
   export const GetProductImage = (productId) => {
-    console.log("product id for image",productId)
+    // console.log("product id for image",productId)
     if (
       PRODUCTS[productId.toString()] &&
       typeof PRODUCTS[productId.toString()].name !== "undefined"
     ) {
       let returnUrl = PRODUCTS[productId.toString()]?.image
-      console.log(returnUrl)
+      // console.log(returnUrl)
       return returnUrl
     } else {
       return productId;

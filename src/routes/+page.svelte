@@ -7,17 +7,23 @@
   import { FILTERS } from "../constants/filters.js";
   import { PROVIDER } from "../constants/providers.js";
   import { EVENTS } from "../constants/constants.js";
-
   import Loading from "../components/Loading.svelte"
+  import { onMount } from 'svelte';
+  import { afterUpdate } from 'svelte';
 
+  let address
 
   let events = [];
   const oneDayAgo = parseInt((Date.now()/1000) -(24*60*60))
   const subgraphURL = "https://api.thegraph.com/subgraphs/name/ethandev0/pikaperpv3_optimism"
   // const subgraphURL = "https://api.thegraph.com/subgraphs/name/pooltogether/v5-eth-goerli-twab-controller"
-  async function fetchGraphEvents() {
- 
-    const queryString = `{
+
+
+  async function fetchGraphEvents(addressToQuery) {
+    let queryString 
+    if(!addressToQuery) {
+      console.log("no address")
+     queryString = `{
   transactions(first: 420,
     where: { timestamp_gt: ${oneDayAgo} }
     orderBy: timestamp
@@ -36,7 +42,27 @@
     tradeFee
     txHash
   }
-}`
+}`}else{
+ queryString = `{
+  transactions(
+    orderBy: timestamp
+    orderDirection: desc
+    where: {owner: "${addressToQuery}"}
+  ){
+    price
+    isLong
+    leverage
+    margin
+    pnl
+    owner
+    amount
+    timestamp
+    productId
+    wasLiquidated
+    tradeFee
+    txHash
+  }
+}`}
 let trades
     try {
       const response = await axios.post(subgraphURL, { query: queryString });
@@ -46,6 +72,8 @@ let trades
     } catch (error) {
       console.error("GraphQL query error:", error);
     }
+    if(addressToQuery) {trades[0].isAddress=true}
+
     trades.map((trade,index)=>{ 
       let type
       if(trade.wasLiquidated === true) {
@@ -58,92 +86,26 @@ let trades
       else if (trade.isLong === false) {
         type = "SHORT"
       }
-     
       trades[index].type = type
-    
     })
     events = trades
-    
       $: events;
-    
   }
-  async function fetchEvents() {
-    let pikaPerp = new ethers.Contract(
-      "0xD5A8f233CBdDb40368D55C3320644Fb36e597002",
-      ABI.PERPV3,
-      PROVIDER.OPTIMISM
-    );
-    const newPositionFilter = {
-      address: "0xD5A8f233CBdDb40368D55C3320644Fb36e597002",
-      topics: [EVENTS.NEWPOSITION.TOPIC],
-      fromBlock: -200000,
-      toBlock: "latest",
-    };
-    const closePositionFilter = {
-      address: "0xD5A8f233CBdDb40368D55C3320644Fb36e597002",
-      topics: [EVENTS.CLOSEPOSITION.TOPIC],
-      fromBlock: -200000,
-      toBlock: "latest",
-    };
 
-    //   const closeLogsPromise = pikaPerp.queryFilter(
-    //     [pikaPerp.interface.getEventTopic("ClosePosition")],
-    //     -200000,
-    //     "latest"
-    //   );
-    //   const openLogsPromise = pikaPerp.queryFilter(
-    //     [pikaPerp.interface.getEventTopic("NewPosition")],
-    //     -200000,
-    //     "latest"
-    //   );
+  function checkAddressParam() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const newAddress = urlParams.get("address");
 
-    const openLogsPromise = PROVIDER.OPTIMISM.getLogs(
-      newPositionFilter,
-      -200000,
-      "latest"
-    );
-
-    const closeLogsPromise = PROVIDER.OPTIMISM.getLogs(
-      closePositionFilter,
-      -200000,
-      "latest"
-    );
-
-    const [closeLogs, openLogs] = await Promise.all([
-      closeLogsPromise,
-      openLogsPromise,
-    ]);
-
-    const decodedOpenLogs = openLogs.map((open) => {
-      const decodedLog = pikaPerp.interface.parseLog(open);
-      const type = decodedLog.args.isLong ? "LONG" : "SHORT";
-      return {
-        blockNumber: open.blockNumber,
-        transactionHash: open.transactionHash,
-        type: type,
-        ...decodedLog.args,
-      };
-    });
-    const decodedCloseLogs = closeLogs.map((close) => {
-      const decodedLog = pikaPerp.interface.parseLog(close);
-      const type = decodedLog.args.wasLiquidated ? "LIQUIDATED" : "CLOSE";
-
-      return {
-        blockNumber: close.blockNumber,
-        transactionHash: close.transactionHash,
-        type: type,
-        ...decodedLog.args,
-      };
-    });
-    let logs = decodedOpenLogs.concat(decodedCloseLogs);
-    logs = logs.sort((a, b) => a.blockNumber - b.blockNumber).reverse();
-
-    // events = logs;
-    // Update the events array
-    // $: events;
+  if (newAddress && newAddress !== address) {
+    address = newAddress;
+    console.log("viewing address ", address);
   }
-  fetchGraphEvents()
-  fetchEvents();
+
+  fetchGraphEvents(address);
+}
+
+  // Check the address parameter on component mount and after updates
+  onMount(checkAddressParam);
 </script>
 
 {#if events.length > 0}
@@ -157,7 +119,6 @@ let trades
 <style>
   :global(html) {
     font-family: "Inter-var", sans-serif;
-
     background-color: black;
   }
 </style>

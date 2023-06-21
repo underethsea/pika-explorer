@@ -5,6 +5,7 @@
   import EventModal from "../components/EventModal.svelte";
   import Loading from "../components/Loading.svelte"
   import { onMount } from 'svelte';
+  import { isAddress } from "ethers/lib/utils.js";
 
   let showAddress = false;
 
@@ -19,7 +20,6 @@ function toggleDiv() {
   selectedEvent = event;
   modalIsOpen = true;
 }
-
 
   const columns = [
     // { label: "Transaction Hash", key: "transactionHash" },
@@ -81,11 +81,11 @@ function timeAgo(time) {
         leverage: EightLessDecimals(leverage) + "x",
         timestamp: timeAgo(event.timestamp),
         size: Commas(size),
+        isAddress: true,
       };
     });
   };
  
-
   // const sortedEvents = formatEvents().sort((a, b) => {
   //   const aVal = a[key];
   //   const bVal = b[key];
@@ -100,22 +100,45 @@ function timeAgo(time) {
   // });
 
   // events = sortedEvents;
-
-
+  function refreshPage() {
+  let newPath = '/';
+  const queryParams = new URLSearchParams(window.location.search);
+  if (selectedEvent) {
+    queryParams.set('address', selectedEvent.owner.substring(0, 7));
+    newPath += `?${queryParams.toString()}`;
+  }
+  window.location.href = newPath;
+}
 
 </script>
-
-
 <style>
   @import '../styles/event-table.css';
 </style>
 
- 
+{#if events[0]?.isAddress}
+<!-- <div style="position:fixed;left:5px;top:5px" on:click={refreshPage}> -->
+  <a href="/" on:click|preventDefault={refreshPage}>
+<img src="backarrow.svg" style="width:20px;paddingtop:10px"/></a>
+
+<!-- </div> -->
+{/if}
 <center>
-  <h2>Recent Pika Protocol Transactions <button on:click={toggleDiv} style="background-color: transparent; border: none;">
+  <h2>
+   
+    Recent Pika Protocol Transactions 
+    {#if !events[0]?.isAddress}
+    <button on:click={toggleDiv} style="background-color: transparent; border: none;">
     AD
   </button>
+  {/if}
   </h2>
+  
+  {#if events[0]?.isAddress}
+  <span style="color:#d5d6bb">
+    <a href={"https://optimistic.etherscan.io/address/" + events[0].owner} style="text-decoration:none;color:#d5d6bb" target="_blank" referrer="norefferer">
+    {events[0].owner}</a></span><br><br>
+  {/if}
+
   <table>
     <thead>
       <tr>
@@ -129,7 +152,10 @@ function timeAgo(time) {
           {/if}
          
         {/each}
-        <th></th><th></th>
+        <th></th>
+        {#if !events[0]?.isAddress}
+        
+        <th></th>{/if}
         
       </tr>
     </thead>
@@ -183,7 +209,12 @@ function timeAgo(time) {
             
           {/each}
           {#if showAddress}
-  <th><a href={"https://optimistic.etherscan.io/address/"+event.owner} target="_blank">{event.owner.substring(0, 7)}</a></th>
+  <td>
+    <a href={"/?address="+event.owner} target="_blank">
+
+   
+      
+      {event.owner.substring(0, 7)}</a></td>
 {/if}
 
         </tr>
