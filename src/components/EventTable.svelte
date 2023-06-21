@@ -7,10 +7,10 @@
   import { onMount } from 'svelte';
   import { isAddress } from "ethers/lib/utils.js";
 
-  let showAddress = false;
+  let showMore = false;
 
 function toggleDiv() {
-  showAddress = !showAddress;
+  showMore = !showMore;
 }
 
   let selectedEvent = null
@@ -164,51 +164,41 @@ function timeAgo(time) {
       {#each formatEvents() as event}
         <tr>
      
-            {#each columns as column}
-            {#if column.key === "type"}
-            <td class="type-column" style="text-align: {column.align || 'left'}"  on:click={() => openModal(event)}>
-             
-       
-          
-          
-               <span class="type-column">
-               
+          {#each columns as column}
+          {#if column.key === "type"}
+            <td class="type-column" style="text-align: {column.align || 'left'}">
+              <!-- <span class="type-column"> -->
                 {event["type"]} 
-                  {#if !event.wasLiquidated && event.pnl !== null}
-                  {#if parseInt(event.pnl) < 0}
-                    <img src="red.svg"/>
-                   
+                {#if !event.wasLiquidated && event.pnl !== null && parseInt(event.pnl) < 0}
+                  {#if showMore}
+                   {" "} <span style="color:#fa7338;font-size:14px">&nbsp;{EightLessDecimals(event.pnl)}</span>
                   {:else}
-                    <img src="green.svg"/>
+                    <img src="red.svg" alt="red"/>
                   {/if}
-                {/if} 
-                </span>
-                </td>
-            
-                
-                <!-- {:else if column.key === "pnl"}
-                <td style="text-align: {column.align || 'right'}">
-                  {#if event.pnl !== null}
-                  {#if parseInt(event.pnl) < 0}
-                    <img src="red.svg" style="position: relative; left: -12px;"/>
+                {:else if !event.wasLiquidated && event.pnl !== null}
+                  {#if showMore}
+                  <span style="color:#68e268;font-size:14px">&nbsp;{EightLessDecimals(event.pnl)}</span>
                   {:else}
-                    <img src="green.svg" style="position: relative; left: -12px;"/>
+                    <img src="green.svg" alt="green"/>
                   {/if}
-                {/if} -->
-                {:else if column.key==="logo"}
-                <img src={GetProductImage(event.productId)} style="width:20px;padding-top:4px;"/>
-                  {:else if column.key==="size"}
-                  <td>
-                  {event.size}
-                </td><td><img src="/arrow.svg" style="width:12px;position:relative;left:-12px;cursor:pointer;"  on:click={() => openModal(event)}/></td>
-                {:else}
-              <td style="text-align: {column.align || 'left'}"
-                >{event[column.key]}</td
-              >
-            {/if}
-            
-          {/each}
-          {#if showAddress}
+                {/if}
+              <!-- </span> -->
+            </td>
+          {:else if column.key === "logo"}
+            <td>
+              <img src={GetProductImage(event.productId)} style="width:20px;padding-top:4px;"/>
+            </td>
+          {:else if column.key === "size"}
+            <td>{event.size}</td>
+            <td>
+              <img src="/arrow.svg" style="width:12px;position:relative;left:-12px;cursor:pointer;" on:click={() => openModal(event)}/>
+            </td>
+          {:else}
+            <td style="text-align: {column.align || 'left'}">{event[column.key]}</td>
+          {/if}
+        {/each}
+        
+          {#if showMore}
   <td>
     <a href={"/?address="+event.owner} target="_blank">
 
