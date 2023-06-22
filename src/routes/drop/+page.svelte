@@ -86,7 +86,7 @@ const updatedClaims = decodedClaimLogs.map(claim => {
   return claim;
 });
 
-const totalClaimFee = updatedClaims.reduce((total, claim) => {
+const totalClaimFee = decodedVestLogs.reduce((total, claim) => {
   if (claim.claimFee) {
     return total.add(claim.claimFee); // Assuming the claimFee values are instances of the BigNumber class
   }
