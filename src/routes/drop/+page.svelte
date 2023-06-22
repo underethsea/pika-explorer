@@ -66,7 +66,6 @@ const airdropClaimedTopic = "0xd8138f8a3f377c5259ca548e70e4c2de94f129f5a11036a15
       "latest"
     );
 
-
      const [airdropClaimedEvents, vestesPikaEvents, vestDepositEvents] = await Promise.all([
       airdropClaimedLogsPromise, vestesPikaLogsPromise, vestDepositLogsPromise
       ,
@@ -104,6 +103,13 @@ const updatedClaims = decodedClaimLogs.map(claim => {
   }
   return claim;
 });
+const totalStaked = decodedDepositLogs.reduce((total, claim) => {
+  if (claim.amount) {
+    return total.add(claim.amount); // Assuming the claimFee values are instances of the BigNumber class
+  }
+  return total;
+}, BigNumber.from(0)); // Assuming you're using ethers.js and BigNumber class
+
 
 const totalClaimFee = decodedVestLogs.reduce((total, claim) => {
   if (claim.claimFee) {
@@ -121,8 +127,10 @@ const totalClaimed = updatedClaims.reduce((total, claim) => {
 
 console.log("total claimed",parseInt(totalClaimed)/1e18)
 console.log("total claim fee",parseInt(totalClaimFee)/1e18)
+console.log("total staked",parseInt(totalStaked)/1e18)
 
- totals = {claimed:totalClaimed,vestingFee:totalClaimFee}
+
+ totals = {claimed:totalClaimed,vestingFee:totalClaimFee,staked:totalStaked}
 console.log("totals",totals)
     events = updatedClaims.reverse()
     console.log(updatedClaims)

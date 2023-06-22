@@ -50,6 +50,9 @@
    
 const totalClaimed = Commas(Math.round(parseInt(totals.claimed)/1e18))
 const totalReturned = Commas(Math.round(parseInt(totals.vestingFee)/1e18))
+const totalStaked = Commas(Math.round(parseInt(totals.staked)/1e18))
+const percentStaked = parseInt(totals.staked) / parseInt(totals.claimed)
+
 console.log("totals in component",totals)
   
   </script>
@@ -63,7 +66,10 @@ console.log("totals in component",totals)
       </h2>
       <span style="color:white">
     Claimed <img src="../pika.webp" style="width:14px;" alt="pika"/>&nbsp;{totalClaimed}&nbsp;&nbsp;&nbsp;&nbsp;
+    {(percentStaked * 100).toFixed(2)}% Staked <img src="../pika.webp" style="width:14px;" alt="pika"/> {totalStaked} 
+    &nbsp;&nbsp;&nbsp;&nbsp;
     Returned to Treasury <img src="../pika.webp" style="width:14px;" alt="pika"/> {totalReturned}
+    
 </span>
 <br><br>
 <table>
@@ -97,14 +103,14 @@ console.log("totals in component",totals)
             
             {#each formatEvents().slice(rowIndex * 4, rowIndex * 4 + 4) as event}
            
-              <td style="text-align:left">
+              <td style="text-align:left;color:#c9c5c5">
                
               {event.account}
               {#if event.claimFee}
               <span style="color:red;">RIP</span>&nbsp;
             {/if}
             </td>
-              <td style="text-align: right;">
+              <td style="text-align: right;color:#c9c5c5">
                 <img src="../pika.webp" style="width:14px;" alt="pika"/>
                 {Math.round(parseInt(event.amount)/1e18)}
               </td>
