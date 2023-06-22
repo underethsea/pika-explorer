@@ -24,6 +24,6 @@
   
   
   <div class="spinner">
-    <img src="/pika.webp" alt="Loading spinner" />
+    <img src="/binos.webp" alt="Loading spinner" />
   </div>
   
