@@ -169,13 +169,13 @@ function timeAgo(time) {
             <td class="type-column" style="text-align: {column.align || 'left'}">
               <!-- <span class="type-column"> -->
                 {event["type"]} 
-                {#if !event.wasLiquidated && event.pnl !== null && parseInt(event.pnl) < 0}
+                {#if event.pnl !== null && parseInt(event.pnl) < 0}
                   {#if showMore}
                    {" "} <span style="color:#fa7338;font-size:14px">&nbsp;{EightLessDecimals(event.pnl)}</span>
                   {:else}
                     <img src="red.svg" alt="red"/>
                   {/if}
-                {:else if !event.wasLiquidated && event.pnl !== null}
+                {:else if event.pnl !== null}
                   {#if showMore}
                   <span style="color:#68e268;font-size:14px">&nbsp;{EightLessDecimals(event.pnl)}</span>
                   {:else}
