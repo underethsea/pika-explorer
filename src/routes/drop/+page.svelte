@@ -26,6 +26,7 @@ const airdropClaimedTopic = "0xd8138f8a3f377c5259ca548e70e4c2de94f129f5a11036a15
       PROVIDER.OPTIMISM
     );
 
+    
 
     const airdropClaimedFilter = {
       address: "0x67a9e34A763395266612FFc8c9305eB2Fca4d4bE",
@@ -39,6 +40,12 @@ const airdropClaimedTopic = "0xd8138f8a3f377c5259ca548e70e4c2de94f129f5a11036a15
       fromBlock: -200000,
       toBlock: "latest",
     };
+    const vestDepositFilter = {
+      address: "0x21a4a5c00ab2fd749ebec8282456d93351459f2a",
+      topics: ["0x90890809c654f11d6e72a28fa60149770a0d11ec6c92319d6ceb2bb0a4ea1a15"],
+      fromBlock: -200000,
+      toBlock: "latest",
+    }
 
   
 
@@ -53,9 +60,15 @@ const airdropClaimedTopic = "0xd8138f8a3f377c5259ca548e70e4c2de94f129f5a11036a15
       "latest"
     );
 
+    const vestDepositLogsPromise = PROVIDER.OPTIMISM.getLogs(
+      vestDepositFilter,
+      -200000,
+      "latest"
+    );
 
-     const [airdropClaimedEvents, vestesPikaEvents] = await Promise.all([
-      airdropClaimedLogsPromise, vestesPikaLogsPromise
+
+     const [airdropClaimedEvents, vestesPikaEvents, vestDepositEvents] = await Promise.all([
+      airdropClaimedLogsPromise, vestesPikaLogsPromise, vestDepositLogsPromise
       ,
     ]);
 
@@ -70,10 +83,16 @@ const airdropClaimedTopic = "0xd8138f8a3f377c5259ca548e70e4c2de94f129f5a11036a15
     
       return decodedLog.args
     });
+
+    const decodedDepositLogs = vestDepositEvents.map((open) => {
+      const decodedLog = vestesPikaContract.interface.parseLog(open);
+      return decodedLog.args
+    });
   
     // let logs = decodedOpenLogs.concat(decodedCloseLogs);
     // logs = logs.sort((a, b) => a.blockNumber - b.blockNumber).reverse();
 
+    console.log("deposit logs",decodedDepositLogs)
     // Create a map of burns based on the address
 const burnMap = new Map(decodedVestLogs.map(burn => [burn.user, burn.claimFee]));
 console.log(burnMap)
