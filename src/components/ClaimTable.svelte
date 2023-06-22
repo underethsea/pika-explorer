@@ -52,7 +52,7 @@ const totalClaimed = Commas(Math.round(parseInt(totals.claimed)/1e18))
 const totalReturned = Commas(Math.round(parseInt(totals.vestingFee)/1e18))
 const totalStaked = Commas(Math.round(parseInt(totals.staked)/1e18))
 const percentStaked = parseInt(totals.staked) / parseInt(totals.claimed)
-
+const claims = totals.claims
 console.log("totals in component",totals)
   
   </script>
@@ -65,7 +65,7 @@ console.log("totals in component",totals)
       Recent Pika Airdrop Claims
       </h2>
       <span style="color:white">
-    Claimed <img src="../pika.webp" style="width:14px;" alt="pika"/>&nbsp;{totalClaimed}&nbsp;&nbsp;&nbsp;&nbsp;
+    {Commas(claims)} Claimed <img src="../pika.webp" style="width:14px;" alt="pika"/>&nbsp;{totalClaimed}&nbsp;&nbsp;&nbsp;&nbsp;
     {(percentStaked * 100).toFixed(2)}% Staked <img src="../pika.webp" style="width:14px;" alt="pika"/> {totalStaked} 
     &nbsp;&nbsp;&nbsp;&nbsp;
     Returned to Treasury <img src="../pika.webp" style="width:14px;" alt="pika"/> {totalReturned}

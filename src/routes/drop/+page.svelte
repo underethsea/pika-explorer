@@ -130,7 +130,7 @@ console.log("total claim fee",parseInt(totalClaimFee)/1e18)
 console.log("total staked",parseInt(totalStaked)/1e18)
 
 
- totals = {claimed:totalClaimed,vestingFee:totalClaimFee,staked:totalStaked}
+ totals = {claimed:totalClaimed,vestingFee:totalClaimFee,staked:totalStaked,claims:updatedClaims.length}
 console.log("totals",totals)
     events = updatedClaims.reverse()
     console.log(updatedClaims)
