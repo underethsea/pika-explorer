@@ -1,5 +1,6 @@
 <script>
     export let events = [];
+    export let totals = {}
     let sortOrder = null
     import { GetProductImage, GetProduct, Commas, EightLessDecimals} from "../utils/utils.js"
     import Loading from "../components/Loading.svelte"
@@ -25,11 +26,8 @@
       { label: "Address", key: "account"},
       { label: "Amount", key: "amount"},
       { label: "Vested", key: "claimFee"},
-
-      
     ];
   
-
 //     const intervals = [
 //     { label: 'y', seconds: 31536000 },
 //     { label: 'm', seconds: 2592000 },
@@ -72,7 +70,9 @@
       });
     };
    
-
+const totalClaimed = Commas(Math.round(parseInt(totals.claimed)/1e18,2))
+const totalReturned = Commas(Math.round(parseInt(totals.vestingFee)/1e18),2)
+console.log("totals in component",totals)
   
   </script>
   <style>
@@ -91,7 +91,11 @@
     <h2>
       Recent Pika Airdrop Claims
       </h2>
- 
+      <span style="color:white">
+ Claimed           <img src="../pika.webp" style="width:14px;" alt="pika"/>&nbsp;{totalClaimed}&nbsp;&nbsp;&nbsp;&nbsp;
+Returned to Treasury {totalReturned}
+</span>
+
     <table>
         <thead>
           <tr>

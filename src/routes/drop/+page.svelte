@@ -1,6 +1,8 @@
 <script>
 
 import { ethers } from "ethers";
+const { BigNumber } = ethers;
+
   import ClaimTable from "../../components/ClaimTable.svelte";
   import { ABI } from "../../constants/abi.js";
   import { PROVIDER } from "../../constants/providers.js";
@@ -9,6 +11,7 @@ import { ethers } from "ethers";
 
 const airdropClaimedTopic = "0xd8138f8a3f377c5259ca548e70e4c2de94f129f5a11036a15b69513cba2b426a"
   let events = [];
+  let totals = {}
 
   async function fetchEvents() {
     let airdropContract = new ethers.Contract(
@@ -83,11 +86,30 @@ const updatedClaims = decodedClaimLogs.map(claim => {
   return claim;
 });
 
+const totalClaimFee = updatedClaims.reduce((total, claim) => {
+  if (claim.claimFee) {
+    return total.add(claim.claimFee); // Assuming the claimFee values are instances of the BigNumber class
+  }
+  return total;
+}, BigNumber.from(0)); // Assuming you're using ethers.js and BigNumber class
 
-    events = updatedClaims;
+const totalClaimed = updatedClaims.reduce((total, claim) => {
+  if (claim.amount) {
+    return total.add(claim.amount); // Assuming the claimFee values are instances of the BigNumber class
+  }
+  return total;
+}, BigNumber.from(0)); // Assuming you're using ethers.js and BigNumber class
+
+console.log("total claimed",parseInt(totalClaimed)/1e18)
+console.log("total claim fee",parseInt(totalClaimFee)/1e18)
+
+ totals = {claimed:totalClaimed,vestingFee:totalClaimFee}
+console.log("totals",totals)
+    events = updatedClaims.reverse()
     console.log(updatedClaims)
     // Update the events array
     $: events;
+    $: totals;
   }
 
   fetchEvents();
@@ -100,7 +122,7 @@ const updatedClaims = decodedClaimLogs.map(claim => {
   </style>
   
 {#if events.length > 0}
-  <ClaimTable {events} />
+  <ClaimTable {events} {totals} />
 {:else}
  
 <div class="loading-spinner-container">
