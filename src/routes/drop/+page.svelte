@@ -21,7 +21,7 @@ const airdropClaimedTopic = "0xd8138f8a3f377c5259ca548e70e4c2de94f129f5a11036a15
     );
 
     let vestesPikaContract = new ethers.Contract(
-      "0x71f25bac9fb59a04bf39830ad2d8d0df9c277605",
+      "0x21a4a5c00ab2fd749ebec8282456d93351459f2a",
       ABI.VEST,
       PROVIDER.OPTIMISM
     );
@@ -34,7 +34,7 @@ const airdropClaimedTopic = "0xd8138f8a3f377c5259ca548e70e4c2de94f129f5a11036a15
       toBlock: "latest",
     };
     const vestesPikaFilter = {
-      address: "0x71f25bac9fb59a04bf39830ad2d8d0df9c277605",
+      address: "0x21a4a5c00ab2fd749ebec8282456d93351459f2a",
       topics: ["0x45c072aa05b9853b5a993de7a28bc332ee01404a628cec1a23ce0f659f842ef1"],
       fromBlock: -200000,
       toBlock: "latest",
