@@ -118,6 +118,15 @@ const totalClaimFee = decodedVestLogs.reduce((total, claim) => {
   return total;
 }, BigNumber.from(0)); // Assuming you're using ethers.js and BigNumber class
 
+const totalRedeemed = decodedVestLogs.reduce((total, claim) => {
+  if (claim.amountClaimed) {
+    return total.add(claim.amountClaimed); // Assuming the claimFee values are instances of the BigNumber class
+  }
+  return total;
+}, BigNumber.from(0)); // Assuming you're using ethers.js and BigNumber class
+
+
+
 const totalClaimed = updatedClaims.reduce((total, claim) => {
   if (claim.amount) {
     return total.add(claim.amount); // Assuming the claimFee values are instances of the BigNumber class
@@ -125,12 +134,15 @@ const totalClaimed = updatedClaims.reduce((total, claim) => {
   return total;
 }, BigNumber.from(0)); // Assuming you're using ethers.js and BigNumber class
 
+
+
 console.log("total claimed",parseInt(totalClaimed)/1e18)
 console.log("total claim fee",parseInt(totalClaimFee)/1e18)
 console.log("total staked",parseInt(totalStaked)/1e18)
+console.log("total pika redeemed",parseInt(totalRedeemed)/1e18)
 
 
- totals = {claimed:totalClaimed,vestingFee:totalClaimFee,staked:totalStaked,claims:updatedClaims.length}
+ totals = {claimed:totalClaimed,vestingFee:totalClaimFee,staked:totalStaked,claims:updatedClaims.length,redeemed:totalRedeemed}
 console.log("totals",totals)
     events = updatedClaims.reverse()
     console.log(updatedClaims)

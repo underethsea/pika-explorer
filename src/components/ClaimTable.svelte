@@ -52,6 +52,7 @@ const totalClaimed = Commas(Math.round(parseInt(totals.claimed)/1e18))
 const totalReturned = Commas(Math.round(parseInt(totals.vestingFee)/1e18))
 const totalStaked = Commas(Math.round(parseInt(totals.staked)/1e18))
 const percentStaked = parseInt(totals.staked) / parseInt(totals.claimed)
+const totalRedeemed = Commas(Math.round(parseInt(totals.redeemed) / 1e18))
 const claims = totals.claims
 console.log("totals in component",totals)
   
@@ -67,6 +68,8 @@ console.log("totals in component",totals)
       <span style="color:white">
     {Commas(claims)} Claimed <img src="../pika.webp" style="width:14px;" alt="pika"/>&nbsp;{totalClaimed}&nbsp;&nbsp;&nbsp;&nbsp;
     {(percentStaked * 100).toFixed(2)}% Staked <img src="../pika.webp" style="width:14px;" alt="pika"/> {totalStaked} 
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    PIKA Redeemed <img src="../pika.webp" style="width:14px;" alt="pika"/> {totalRedeemed}
     &nbsp;&nbsp;&nbsp;&nbsp;
     Returned to Treasury <img src="../pika.webp" style="width:14px;" alt="pika"/> {totalReturned}
     
