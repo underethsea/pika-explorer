@@ -170,17 +170,17 @@ function timeAgo(time) {
               <!-- <span class="type-column"> -->
                 {event["type"]} 
                 {#if event.pnl !== null && parseInt(event.pnl) < 0}
-                  {#if showMore}
+                  <!-- {#if showMore} -->
                    {" "} <span style="color:#fa7338;font-size:14px">&nbsp;{EightLessDecimals(event.pnl)}</span>
-                  {:else}
-                    <img src="red.svg" alt="red"/>
-                  {/if}
+                  <!-- {:else} -->
+                    <!-- <img src="red.svg" alt="red"/> -->
+                  <!-- {/if} -->
                 {:else if event.pnl !== null}
-                  {#if showMore}
+                  <!-- {#if showMore} -->
                   <span style="color:#68e268;font-size:14px">&nbsp;{EightLessDecimals(event.pnl)}</span>
-                  {:else}
-                    <img src="green.svg" alt="green"/>
-                  {/if}
+                  <!-- {:else} -->
+                    <!-- <img src="green.svg" alt="green"/> -->
+                  <!-- {/if} -->
                 {/if}
               <!-- </span> -->
             </td>
@@ -198,16 +198,22 @@ function timeAgo(time) {
           {/if}
         {/each}
         
-          {#if showMore}
+          
+        {#if events[0]?.isAddress}
+        {""} 
+        {:else}
+
   <td>
     <a href={"/?address="+event.owner} target="_blank">
 
    
       
-      {event.owner.substring(0, 7)}</a></td>
-{/if}
+      {event.owner.substring(0, 7)}</a></td>   {/if}
+      </tr>
+   
 
-        </tr>
+
+   
       {/each}
     </tbody>
   </table>

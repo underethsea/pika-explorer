@@ -26,8 +26,7 @@ const airdropClaimedTopic = "0xd8138f8a3f377c5259ca548e70e4c2de94f129f5a11036a15
       PROVIDER.OPTIMISM
     );
 
-    
-
+  
     const airdropClaimedFilter = {
       address: "0x67a9e34A763395266612FFc8c9305eB2Fca4d4bE",
       topics: [airdropClaimedTopic],
@@ -47,7 +46,6 @@ const airdropClaimedTopic = "0xd8138f8a3f377c5259ca548e70e4c2de94f129f5a11036a15
       toBlock: "latest",
     }
 
-  
 
     const airdropClaimedLogsPromise = PROVIDER.OPTIMISM.getLogs(
       airdropClaimedFilter,
