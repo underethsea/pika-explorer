@@ -14,15 +14,14 @@
   let address
 
   let events = [];
+  let totals = {}
   const oneDayAgo = parseInt((Date.now()/1000) -(24*60*60))
   const subgraphURL = "https://api.thegraph.com/subgraphs/name/ethandev0/pikaperpv3_optimism"
   // const subgraphURL = "https://api.thegraph.com/subgraphs/name/pooltogether/v5-eth-goerli-twab-controller"
 
-
   async function fetchGraphEvents(addressToQuery) {
     let queryString 
     if(!addressToQuery) {
-      console.log("no address")
      queryString = `{
   transactions(first: 420,
     where: { timestamp_gt: ${oneDayAgo} }
@@ -45,6 +44,7 @@
 }`}else{
  queryString = `{
   transactions(
+    first:300,
     orderBy: timestamp
     orderDirection: desc
     where: {owner: "${addressToQuery}"}
@@ -88,8 +88,19 @@ let trades
       }
       trades[index].type = type
     })
+
+const totalPnl = trades.reduce((total, trade) => {
+  if (trade?.pnl !== null) {
+    return total + parseInt(trade.pnl); 
+  }
+  return total;
+
+}, 0); 
+
+totals = {pnl: totalPnl}
     events = trades
       $: events;
+      $: totals;
   }
 
   function checkAddressParam() {
@@ -109,7 +120,7 @@ let trades
 </script>
 
 {#if events.length > 0}
-  <EventTable {events} />
+  <EventTable {events} {totals}/>
 {:else}
   <div class="loading-spinner-container">
     <Loading size="128px" />

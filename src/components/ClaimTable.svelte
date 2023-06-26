@@ -80,41 +80,71 @@ console.log("totals in component",totals)
       <tr>
         <!-- <th>details</th> -->
 
-        <th style="text-align:left">Address</th>
-            <th style="text-align:right;padding-right:10px}">Amount</th>
-            <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-            <th style="text-align:left">Address</th>
-                <th style="text-align:right;padding-right:10px}">Amount</th>
-                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        <th style="text-align:left;font-size:10px;">Address</th>
+            <th style="text-align:right;padding-right:3px;font-size:10px;}">Amount</th>
+            <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th style="text-align:left;font-size:10px;">Address</th>
+                <th style="text-align:right;padding-right:3px;font-size:10px;}">Amount</th>
+                <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
 
-                <th style="text-align:left">Address</th>
+                <th style="text-align:left;font-size:10px;">Address</th>
         
-                    <th style="text-align:right;padding-right:10px}">Amount</th>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th style="text-align:right;padding-right:3px;font-size:10px;}">Amount</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
 
                  
-                    <th style="text-align:left">Address</th>
+                    <th style="text-align:left;font-size:10px;">Address</th>
             
-                        <th style="text-align:right;padding-right:10px}">Amount</th>
-                        <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                        <th style="text-align:right;padding-right:3px;font-size:10px;}">Amount</th>
+                        <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+
+                    <th style="text-align:left;font-size:10px;">Address</th>
+            
+                    <th style="text-align:right;padding-right:3px;font-size:10px;}">Amount</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th style="text-align:left;font-size:10px;">Address</th>
+            
+                        <th style="text-align:right;padding-right:3px;font-size:10px;}">Amount</th>
+                        <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                        <th style="text-align:left;font-size:10px;">Address</th>
+
+                    <th style="text-align:right;padding-right:3px;font-size:10px;}">Amount</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th style="text-align:left;font-size:10px;">Address</th>
+            
+                        <th style="text-align:right;padding-right:3px;font-size:10px;}">Amount</th>
+                        <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                        <th style="text-align:left;font-size:10px;">Address</th>
+
+
+          
+                        <th style="text-align:right;padding-right:3px;font-size:10px;}">Amount</th>
+                        <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                        <th style="text-align:left;font-size:10px;">Address</th>
+                
+                            <th style="text-align:right;padding-right:3px;font-size:10px;}">Amount</th>
+                            <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+    
+        
+                      
 
           
       </tr>
     </thead><tbody>
-        {#each Array(Math.ceil(formatEvents().length / 4)) as _, rowIndex}
+        {#each Array(Math.ceil(formatEvents().length / 10)) as _, rowIndex}
           <tr>
             
-            {#each formatEvents().slice(rowIndex * 4, rowIndex * 4 + 4) as event}
+            {#each formatEvents().slice(rowIndex * 10, rowIndex * 10 + 10) as event}
            
-              <td style="text-align:left;color:#c9c5c5">
+              <td style="text-align:left;color:#c9c5c5;font-size:8px">
                
               {event.account}
               {#if event.claimFee}
               <span style="color:red;">RIP</span>&nbsp;
             {/if}
             </td>
-              <td style="text-align: right;color:#c9c5c5">
-                <img src="../pika.webp" style="width:14px;" alt="pika"/>
+              <td style="text-align: right;color:#c9c5c5;font-size:8px">
+                <img src="../pika.webp" style="width:5px;" alt="pika"/>
                 {Math.round(parseInt(event.amount)/1e18)}
               </td>
               <td></td>

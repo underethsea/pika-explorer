@@ -1,5 +1,6 @@
 <script>
   export let events = [];
+  export let totals = {}
   let sortOrder = null
   import { GetProductImage, GetProduct, Commas, EightLessDecimals} from "../utils/utils.js"
   import EventModal from "../components/EventModal.svelte";
@@ -100,6 +101,11 @@ function timeAgo(time) {
   // });
 
   // events = sortedEvents;
+
+  function getPnlColor() {
+    return totals.pnl < 0 ? "rgb(250, 115, 56)": "rgb(104, 226, 104)";
+  }
+  console.log("total pnl in component",totals.pnl)
   function refreshPage() {
   let newPath = '/';
   const queryParams = new URLSearchParams(window.location.search);
@@ -125,7 +131,7 @@ function timeAgo(time) {
 <center>
   <h2>
    
-    Recent Pika Protocol Transactions 
+    Recent Pika Protocol Transactions <span style="color:{getPnlColor()};font-size:14px">{Commas(EightLessDecimals(totals.pnl))}</span>
     {#if !events[0]?.isAddress}
     <button on:click={toggleDiv} style="background-color: transparent; border: none;">
     AD
