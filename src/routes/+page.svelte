@@ -18,7 +18,6 @@
   const oneDayAgo = parseInt((Date.now()/1000) -(24*60*60*3))
   const subgraphURL = "https://api.thegraph.com/subgraphs/name/ethandev0/pikaperpv4_optimism"
 //  https://api.thegraph.com/subgraphs/name/ethandev0/pikaperpv3_optimism"
-  // const subgraphURL = "https://api.thegraph.com/subgraphs/name/pooltogether/v5-eth-goerli-twab-controller"
 
   async function fetchGraphEvents(addressToQuery) {
     let queryString 

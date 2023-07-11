@@ -15,8 +15,7 @@
   </script>
   
   {#if isOpen}
-  {console.log(event)}
-  {console.log(event.margin)}
+ 
   <div class="modal">
     <div class="modal-content">
       <span class="close" on:click={handleClose}>&times;</span>

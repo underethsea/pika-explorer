@@ -85,19 +85,19 @@ async function GetPositions() {
   shortAvgLeverage = shortsum_amount_leverage / shortOpenInterest / Math.pow(10, 8);
   longShortRatio = (longOpenInterest / shortOpenInterest).toFixed(2);
 
-  console.log("Open Positions:", openPositions);
-  console.log("Open Interest:", parseInt(openInterest / 1e8));
-  console.log("Short Open Interest:", parseInt(shortOpenInterest / 1e8));
-  console.log("Long Open Interest:", parseInt(longOpenInterest / 1e8));
-  console.log("Long/Short Ratio:", longShortRatio);
-  console.log(
-    "Vol Weighted Avg Long Leverage:",
-    longAvgLeverage.toFixed(2) + "x"
-  );
-  console.log(
-    "Vol Weighted Avg Short Leverage:",
-    shortAvgLeverage.toFixed(2) + "x"
-  );
+//   console.log("Open Positions:", openPositions);
+//   console.log("Open Interest:", parseInt(openInterest / 1e8));
+//   console.log("Short Open Interest:", parseInt(shortOpenInterest / 1e8));
+//   console.log("Long Open Interest:", parseInt(longOpenInterest / 1e8));
+//   console.log("Long/Short Ratio:", longShortRatio);
+//   console.log(
+//     "Vol Weighted Avg Long Leverage:",
+//     longAvgLeverage.toFixed(2) + "x"
+//   );
+//   console.log(
+//     "Vol Weighted Avg Short Leverage:",
+//     shortAvgLeverage.toFixed(2) + "x"
+//   );
 
 }
   

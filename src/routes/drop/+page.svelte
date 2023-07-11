@@ -89,10 +89,10 @@ const airdropClaimedTopic = "0xd8138f8a3f377c5259ca548e70e4c2de94f129f5a11036a15
     // let logs = decodedOpenLogs.concat(decodedCloseLogs);
     // logs = logs.sort((a, b) => a.blockNumber - b.blockNumber).reverse();
 
-    console.log("deposit logs",decodedDepositLogs)
+    // console.log("deposit logs",decodedDepositLogs)
     // Create a map of burns based on the address
 const burnMap = new Map(decodedVestLogs.map(burn => [burn.user, burn.claimFee]));
-console.log(burnMap)
+// console.log(burnMap)
 // Iterate over the claims array and add the fee if the address exists in the burn map
 const updatedClaims = decodedClaimLogs.map(claim => {
   if (burnMap.has(claim.account)) {
@@ -134,16 +134,16 @@ const totalClaimed = updatedClaims.reduce((total, claim) => {
 
 
 
-console.log("total claimed",parseInt(totalClaimed)/1e18)
-console.log("total claim fee",parseInt(totalClaimFee)/1e18)
-console.log("total staked",parseInt(totalStaked)/1e18)
-console.log("total pika redeemed",parseInt(totalRedeemed)/1e18)
+// console.log("total claimed",parseInt(totalClaimed)/1e18)
+// console.log("total claim fee",parseInt(totalClaimFee)/1e18)
+// console.log("total staked",parseInt(totalStaked)/1e18)
+// console.log("total pika redeemed",parseInt(totalRedeemed)/1e18)
 
 
  totals = {claimed:totalClaimed,vestingFee:totalClaimFee,staked:totalStaked,claims:updatedClaims.length,redeemed:totalRedeemed}
-console.log("totals",totals)
+// console.log("totals",totals)
     events = updatedClaims.reverse()
-    console.log(updatedClaims)
+    // console.log(updatedClaims)
     // Update the events array
     $: events;
     $: totals;

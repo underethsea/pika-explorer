@@ -142,7 +142,7 @@ function timeAgo(time) {
   }
   window.location.href = newPath;
 }
-console.log("totals",totals)
+// console.log("totals",totals)
 </script>
 <style>
   @import '../styles/event-table.css';
