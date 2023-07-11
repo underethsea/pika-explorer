@@ -8,7 +8,7 @@ import { PRODUCTS } from "../constants/constants.js";
   export const EightLessDecimalsPrecise = (num) => 
   {
     num = parseFloat(num) / 1e8;
-    if(num < 100) {
+    if(num < 20000) {
         return num.toFixed(2)
     }else {return Math.round(num)}
   };

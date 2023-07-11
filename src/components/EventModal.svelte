@@ -33,6 +33,10 @@
         <div style="text-align: right;">{Commas(event.size)}</div>
         <div>Price</div>
         <div style="text-align: right;">{Commas(EightLessDecimalsPrecise(event.price))}</div>
+                <!-- <div style="text-align: right;">{event.price}</div> -->
+                <div>Date</div>
+                <div style="text-align: right;">{event.date}</div>
+
         {#if parseFloat(event.oraclePrice/1e8).toFixed(2) !== parseFloat(event.price/1e8).toFixed(2)}
         <!-- <div>Oracle Price</div>
         
@@ -49,9 +53,13 @@
         
         <div>Close Price</div>
         <div style="text-align: right;">{Commas(EightLessDecimalsPrecise(event.price))}</div>
+       
+
     
         <div>PNL</div>
-        <div style="text-align: right;">{Commas(EightLessDecimals(event.pnl))}</div>
+        <div style="text-align: right;">{Commas(EightLessDecimalsPrecise(event.pnl))}</div>
+        <div>Date</div>
+        <div style="text-align: right;">{event.date}</div>
         {#if event.fundingPayment / 1e8 >= 1}
         <div>Funding Payment</div>
         <div style="text-align: right;">{Commas(EightLessDecimals(event.fundingPayment))}</div>
@@ -66,7 +74,7 @@
   <style>
     .grid-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 3fr;
   grid-gap: 0.5rem;
   margin-top: 1rem;
 }
@@ -119,7 +127,7 @@
 
     .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 3fr;
   grid-row-gap: 10px;
 }
 

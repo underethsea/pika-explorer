@@ -4,9 +4,35 @@
   let sortOrder = null
   import { GetProductImage, GetProduct, Commas, EightLessDecimals} from "../utils/utils.js"
   import EventModal from "../components/EventModal.svelte";
+  import ProtocolInterest from "../components/ProtocolInterest.svelte";
+  import OneDay from "../components/OneDay.svelte";
+
   import Loading from "../components/Loading.svelte"
   import { onMount } from 'svelte';
   import { isAddress } from "ethers/lib/utils.js";
+
+  // Modal state
+let isProtocolOpen = false;
+let interestModalIsOpen = false
+let isOneDayOpen = false
+
+// Function to open the modal
+const openProtocol = () => {
+  isProtocolOpen = true;
+};
+
+// Function to close the modal
+const closeProtocol = () => {
+  isProtocolOpen = false;
+};
+
+const closeOneDay = () => {
+  isOneDayOpen = false;
+};
+
+const openOneDay = () => {
+  isOneDayOpen = true;
+};
 
   let showMore = false;
 
@@ -21,12 +47,15 @@ function toggleDiv() {
   selectedEvent = event;
   modalIsOpen = true;
 }
+const openInterestModal = () => {
+  interestModalIsOpen = true;
+}
 
   const columns = [
     // { label: "Transaction Hash", key: "transactionHash" },
     { label: "", key: "logo"},
 
-    { label: "Ago", key: "timestamp"},
+    { label: "Ago", key: "time"},
 
     { label: "Trade", key: "type" },
 
@@ -66,9 +95,7 @@ function timeAgo(time) {
  timeA = timeA.replace(" seconds","s")
  timeA = timeA.replace(" ago","")
  return timeA
-
 }
-
 
   const formatEvents = () => {
     return events.map((event) => {
@@ -80,7 +107,8 @@ function timeAgo(time) {
         productSymbol: GetProduct(event.productId),
         margin: Commas(EightLessDecimals(margin)),
         leverage: EightLessDecimals(leverage) + "x",
-        timestamp: timeAgo(event.timestamp),
+        time: timeAgo(event.timestamp),
+        date: new Date(event.timestamp * 1000).toLocaleString(),
         size: Commas(size),
         isAddress: true,
       };
@@ -105,7 +133,6 @@ function timeAgo(time) {
   function getPnlColor() {
     return totals.pnl < 0 ? "rgb(250, 115, 56)": "rgb(104, 226, 104)";
   }
-  console.log("total pnl in component",totals.pnl)
   function refreshPage() {
   let newPath = '/';
   const queryParams = new URLSearchParams(window.location.search);
@@ -115,11 +142,27 @@ function timeAgo(time) {
   }
   window.location.href = newPath;
 }
-
+console.log("totals",totals)
 </script>
 <style>
   @import '../styles/event-table.css';
+  .button {
+    background-color:#d8d889;
+    border-radius:10px;
+    display:inline-block;
+    color: black;
+    padding:7px;
+    font-size:13px;
+    cursor:pointer;
+
+    
+  }
+  .button:hover {
+    background-color:#efefb4
+  }
 </style>
+
+
 
 {#if events[0]?.isAddress}
 <!-- <div style="position:fixed;left:5px;top:5px" on:click={refreshPage}> -->
@@ -129,15 +172,23 @@ function timeAgo(time) {
 <!-- </div> -->
 {/if}
 <center>
-  <h2>
+  <h1>
    
-    Recent Pika Protocol Transactions <span style="color:{getPnlColor()};font-size:14px">{Commas(EightLessDecimals(totals.pnl))}</span>
-    {#if !events[0]?.isAddress}
+    Recent Pika Protocol Transactions <span style="color:{getPnlColor()};font-size:14px">
+<!--       
+      {Commas(parseInt(totals.pnl))}</span> -->
+      {#if !events[0]?.isAddress}
+<br>
+      <div on:click={() => openInterestModal()} class="button">PROTOCOL INTEREST</div>&nbsp;&nbsp;&nbsp;
+      <div on:click={() => openOneDay()} class="button">24HR STATS</div>
+{/if}
+</span>
+    <!-- {#if !events[0]?.isAddress}
     <button on:click={toggleDiv} style="background-color: transparent; border: none;">
     AD
   </button>
-  {/if}
-  </h2>
+  {/if} -->
+  </h1>
   
   {#if events[0]?.isAddress}
   <span style="color:#d5d6bb">
@@ -161,7 +212,7 @@ function timeAgo(time) {
         <th></th>
         {#if !events[0]?.isAddress}
         
-        <th></th>{/if}
+        <th>Address</th>{/if}
         
       </tr>
     </thead>
@@ -225,6 +276,10 @@ function timeAgo(time) {
   </table>
 </center>
 <EventModal event={selectedEvent} isOpen={modalIsOpen} on:close={() => modalIsOpen = false}/>
+
+  <ProtocolInterest isOpen={interestModalIsOpen}  on:close={() => interestModalIsOpen = false}/>
+    <OneDay isOpen={isOneDayOpen}  on:close={() => isOneDayOpen = false}/>
+
 
 
 

@@ -1,6 +1,6 @@
 <script>
   import EventTable from "../components/EventTable.svelte";
-  import { ethers } from "ethers";
+  import { ethers, BigNumber } from "ethers";
   import { fetch } from "cross-fetch";
   import axios from "axios"
   import { ABI } from "../constants/abi.js";
@@ -15,7 +15,7 @@
 
   let events = [];
   let totals = {}
-  const oneDayAgo = parseInt((Date.now()/1000) -(24*60*60))
+  const oneDayAgo = parseInt((Date.now()/1000) -(24*60*60*3))
   const subgraphURL = "https://api.thegraph.com/subgraphs/name/ethandev0/pikaperpv4_optimism"
 //  https://api.thegraph.com/subgraphs/name/ethandev0/pikaperpv3_optimism"
   // const subgraphURL = "https://api.thegraph.com/subgraphs/name/pooltogether/v5-eth-goerli-twab-controller"
@@ -24,7 +24,7 @@
     let queryString 
     if(!addressToQuery) {
      queryString = `{
-  transactions(first: 420,
+  transactions(first: 820,
     where: { timestamp_gt: ${oneDayAgo} }
     orderBy: timestamp
     orderDirection: desc
@@ -89,6 +89,20 @@ let trades
       }
       trades[index].type = type
     })
+    const totalTrades = trades.reduce((accumulator, trade) => {
+  if (trade.wasLiquidated === null) {
+    return accumulator + 1;
+  } else {
+    return accumulator;
+  }
+}, 0);
+const totalVolume = trades.reduce((accumulator, trade) => {
+      if(trade.wasLiquidated===null) {
+  const size = trade.margin/1e8 * trade.leverage/1e8;
+  return accumulator + size;}
+  else{return accumulator}
+}, 0);
+
 
 const totalPnl = trades.reduce((total, trade) => {
   if (trade?.pnl !== null) {
@@ -98,7 +112,7 @@ const totalPnl = trades.reduce((total, trade) => {
 
 }, 0); 
 
-totals = {pnl: totalPnl}
+totals = {pnl: totalPnl/1e8,trades:totalTrades,volume:totalVolume}
     events = trades
       $: events;
       $: totals;
