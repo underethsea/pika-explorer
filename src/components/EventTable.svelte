@@ -281,7 +281,9 @@ console.log("events broken",events)
         {/each}
         
           
-       
+        {#if events[0]?.isAddress}
+        {""} 
+        {:else}
 
   <td>
     <a href={"/?address="+event.owner} target="_blank">
