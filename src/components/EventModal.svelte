@@ -35,6 +35,8 @@
                 <!-- <div style="text-align: right;">{event.price}</div> -->
                 <div>Date</div>
                 <div style="text-align: right;">{event.date}</div>
+                <div>Current Price</div>
+                <div style="text-align: right;">{Commas(EightLessDecimals(event.currentPrice))}</div>
 
         {#if parseFloat(event.oraclePrice/1e8).toFixed(2) !== parseFloat(event.price/1e8).toFixed(2)}
         <!-- <div>Oracle Price</div>
@@ -62,6 +64,8 @@
         {#if event.fundingPayment / 1e8 >= 1}
         <div>Funding Payment</div>
         <div style="text-align: right;">{Commas(EightLessDecimals(event.fundingPayment))}</div>
+        <div>Current Price</div>
+        <div style="text-align: right;">{Commas(EightLessDecimals(event.currentPrice))}</div>
         {/if}
         {/if}
       </div>

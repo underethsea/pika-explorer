@@ -10,6 +10,7 @@
   import Loading from "../components/Loading.svelte"
   import { onMount } from 'svelte';
   import { isAddress } from "ethers/lib/utils.js";
+  
 
   // Modal state
 let isProtocolOpen = false;
@@ -51,6 +52,14 @@ const openInterestModal = () => {
   interestModalIsOpen = true;
 }
 
+const unrealizedPnl = (openPrice,currentPrice,amount) => {
+  const amount8 = amount /1e8
+  const openPrice8 = openPrice /1e8
+  const shares = amount8 / openPrice8; // Calculate the number of shares
+  const uPnl = (currentPrice - openPrice8) * shares
+  return uPnl
+  // return currentPrice - openPrice8 * shares
+}
   const columns = [
     // { label: "Transaction Hash", key: "transactionHash" },
     { label: "", key: "logo"},
@@ -64,6 +73,9 @@ const openInterestModal = () => {
     { label: "Margin", key: "margin", align: "right" },
     { label: "Leverage", key: "leverage", align: "right" },
     { label: "Size", key: "size", align: "right" },
+    // { label: "positionId", key: "positionId", align: "right" },
+
+
     // { label: "PnL", key: "pnl" },
 
   ];
@@ -96,7 +108,7 @@ function timeAgo(time) {
  timeA = timeA.replace(" ago","")
  return timeA
 }
-
+console.log("events broken",events)
   const formatEvents = () => {
     return events.map((event) => {
       const { margin, leverage } = event;
@@ -111,6 +123,10 @@ function timeAgo(time) {
         date: new Date(event.timestamp * 1000).toLocaleString(),
         size: Commas(size),
         isAddress: true,
+        // positionId: event.positionId.slice(-5),
+                // positionId: event.positionId,
+
+
       };
     });
   };
@@ -238,6 +254,15 @@ function timeAgo(time) {
                   <!-- {:else} -->
                     <!-- <img src="green.svg" alt="green"/> -->
                   <!-- {/if} -->
+                {/if}
+                {#if event.pnl === null}
+               
+                {#if unrealizedPnl(event.price,event.currentPrice,event.amount) > 0}
+                <span style="color:#68e268;font-size:14px">&nbsp;{unrealizedPnl(event.price,event.currentPrice,event.amount).toFixed(0)}</span>
+                {:else}
+                <span style="color:#fa7338;font-size:14px">&nbsp;{unrealizedPnl(event.price,event.currentPrice,event.amount).toFixed(0)}</span>
+                {/if}
+              
                 {/if}
               <!-- </span> -->
             </td>

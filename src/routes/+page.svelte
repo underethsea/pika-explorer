@@ -10,6 +10,37 @@
   import Loading from "../components/Loading.svelte"
   import { onMount } from 'svelte';
   import { afterUpdate } from 'svelte';
+  import { GetGeckoPrices } from "../utils/getGeckoPrices.js"
+
+  async function fetchPrices() {
+  const prices = await GetGeckoPrices();
+return prices
+// }
+// const addAlreadyClosedProperty = (trades) => {
+//   return trades.map((trade, index) => {
+//     const { positionId } = trade;
+
+//     const filteredTrades = trades.filter((_, i) => i !== index);
+//     const matchingTrade = filteredTrades.find(
+//       (t) => t.positionId === positionId && t.wasLiquidated !== null
+//     );
+
+//     console.log("trade",trade,"matchess",matchingTrade)
+//     if (!matchingTrade) {
+//       console.log("FALSE")
+
+//       return { ...trade, alreadyClosed: "FALSE" };
+//     } else if (matchingTrade.wasLiquidated) {
+//       console.log("LIQUIDTAD")
+//       return { ...trade, alreadyClosed: "LIQUIDATED" };
+//     } else {
+//       console.log("CLOSED")
+
+//       return { ...trade, alreadyClosed: "CLOSED" };
+//     }
+//   });
+// };
+
 
   let address
 
@@ -40,6 +71,7 @@
     wasLiquidated
     tradeFee
     txHash
+    positionId
   }
 }`}else{
  queryString = `{
@@ -111,10 +143,40 @@ const totalPnl = trades.reduce((total, trade) => {
 
 }, 0); 
 
-totals = {pnl: totalPnl/1e8,trades:totalTrades,volume:totalVolume}
-    events = trades
-      $: events;
-      $: totals;
+const prices = await fetchPrices();
+const priceMap = {};
+
+prices.forEach(priceObj => {
+  priceMap[priceObj.id] = priceObj.price;
+});
+
+
+console.log("trades as productid?", trades);
+
+// Map trades to include the price based on productId
+const tradesWithPrice = trades.map(trade => {
+  const { productId, ...rest } = trade;
+  const currentPrice = priceMap[productId];
+
+  return { productId, currentPrice, ...rest };
+});
+
+// const tradesWithCloseInfo = addAlreadyClosedProperty(tradesWithPrice)
+// console.log(tradesWithCloseInfo)
+
+
+
+totals = { pnl: totalPnl / 1e8, trades: totalTrades, volume: totalVolume };
+events = tradesWithPrice;
+
+$: {
+  events;
+  totals;
+}
+
+
+
+
   }
 
   function checkAddressParam() {
