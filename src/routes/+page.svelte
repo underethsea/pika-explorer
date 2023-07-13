@@ -15,8 +15,7 @@
   async function fetchPrices() {
   const prices = await GetGeckoPrices();
 return prices
-// }
-// const addAlreadyClosedProperty = (trades) => {
+  }// const addAlreadyClosedProperty = (trades) => {
 //   return trades.map((trade, index) => {
 //     const { positionId } = trade;
 

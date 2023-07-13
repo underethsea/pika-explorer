@@ -281,19 +281,13 @@ console.log("events broken",events)
         {/each}
         
           
-        {#if events[0]?.isAddress}
-        {""} 
-        {:else}
+       
 
   <td>
     <a href={"/?address="+event.owner} target="_blank">
-
-   
-      
+  
       {event.owner.substring(0, 7)}</a></td>   {/if}
       </tr>
-   
-
 
    
       {/each}
