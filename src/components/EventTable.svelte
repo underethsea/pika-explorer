@@ -121,7 +121,7 @@ console.log("events broken",events)
         leverage: EightLessDecimals(leverage) + "x",
         time: timeAgo(event.timestamp),
         date: new Date(event.timestamp * 1000).toLocaleString(),
-        size: Commas(size),
+        size: Commas(EightLessDecimals(event.singleAmount)),
         isAddress: true,
         // positionId: event.positionId.slice(-5),
                 // positionId: event.positionId,

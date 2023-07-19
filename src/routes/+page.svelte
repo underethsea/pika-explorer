@@ -71,6 +71,7 @@ return prices
     tradeFee
     txHash
     positionId
+    singleAmount
   }
 }`}else{
  queryString = `{
@@ -92,6 +93,7 @@ return prices
     wasLiquidated
     tradeFee
     txHash
+    singleAmount
   }
 }`}
 let trades
