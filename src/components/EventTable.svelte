@@ -63,11 +63,8 @@ const unrealizedPnl = (openPrice,currentPrice,amount) => {
   const columns = [
     // { label: "Transaction Hash", key: "transactionHash" },
     { label: "", key: "logo"},
-
     { label: "Ago", key: "time"},
-
     { label: "Trade", key: "type" },
-
     // { label: "Product", key: "product" },
     // { label: "User", key: "owner" },
     { label: "Margin", key: "margin", align: "right" },
@@ -213,8 +210,8 @@ console.log("events broken",events)
     {events[0].owner} </a><br>
    
           <span style="color:#e3dfdf;font-size:12px">
-            PnL <span style="color:{getColor(totals.pnl)};font-size:15px">{Commas(parseInt(totals.pnl))}</span> &nbsp;&nbsp;
-            Fees <span style="color:rgb(250, 115, 56);font-size:15px">-{Commas(EightLessDecimalsPrecise(totals.fees))}</span> &nbsp;&nbsp;
+            PnL <span style="color:{getColor(totals.pnl)};font-size:15px">{Commas(Math.round(totals.pnl))}</span> &nbsp;&nbsp; &nbsp;&nbsp;
+            Fees <span style="color:rgb(250, 115, 56);font-size:15px">-{Commas(EightLessDecimalsPrecise(totals.fees))}</span> &nbsp;&nbsp; &nbsp;&nbsp;
             Net <span style="color:{getColor(totals.pnl-(totals.fees/1e8))};font-size:15px">{Commas(Decimals(totals.pnl-(totals.fees/1e8)))}</span>
           </span><br><br>
           </span>
