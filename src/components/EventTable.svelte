@@ -209,7 +209,11 @@ console.log("events broken",events)
   {#if events[0]?.isAddress}
   <span style="color:#d5d6bb">
     <a href={"https://optimistic.etherscan.io/address/" + events[0].owner} style="text-decoration:none;color:#d5d6bb" target="_blank" referrer="norefferer">
-    {events[0].owner}</a></span><br><br>
+    {events[0].owner} </a>
+    <span style="color:{getPnlColor()};font-size:14px">
+         
+            {Commas(parseInt(totals.pnl))}</span>
+  </span><br><br>
   {/if}
 
   <table>
@@ -217,7 +221,10 @@ console.log("events broken",events)
       <tr>
         <!-- <th>details</th> -->
         {#each columns as column}
-        {#if column.label !== "PnL"}
+        {#if column.label === "Trade"}
+        <th style="text-align: {column.align || 'left'}">&nbsp;&nbsp;Trade</th>
+        {/if}
+        {#if column.label !== "PnL" && column.label!=="Trade"}
           <th
             style="text-align: {column.align || 'left'}"
             >{column.label}</th
@@ -225,7 +232,6 @@ console.log("events broken",events)
           {/if}
          
         {/each}
-        <th></th>
         {#if !events[0]?.isAddress}
         
         <th>Address</th>{/if}
@@ -239,7 +245,11 @@ console.log("events broken",events)
      
           {#each columns as column}
           {#if column.key === "type"}
+       
             <td class="type-column" style="text-align: {column.align || 'left'}">
+              <span  on:click={() => openModal(event)}>
+              <img src="/arrow.svg" style="width:12px;position:relative;cursor:pointer;"/>
+
               <!-- <span class="type-column"> -->
                 {event["type"]} 
                 {#if event.pnl !== null && parseInt(event.pnl) < 0}
@@ -258,12 +268,18 @@ console.log("events broken",events)
                 {#if event.pnl === null}
                
                 {#if unrealizedPnl(event.price,event.currentPrice,event.amount) > 0}
-                <span style="color:#68e268;font-size:14px">&nbsp;{unrealizedPnl(event.price,event.currentPrice,event.amount).toFixed(0)}</span>
+                <!-- <span style="color:#68e268;font-size:14px">&nbsp;{unrealizedPnl(event.price,event.currentPrice,event.amount).toFixed(0)}</span> -->
+                <span style="color:#c5c2c2;font-size:14px">&nbsp;{unrealizedPnl(event.price,event.currentPrice,event.amount).toFixed(0)}</span>
+
                 {:else}
-                <span style="color:#fa7338;font-size:14px">&nbsp;{unrealizedPnl(event.price,event.currentPrice,event.amount).toFixed(0)}</span>
+                <!-- <span style="color:#fa7338;font-size:14px">&nbsp;{unrealizedPnl(event.price,event.currentPrice,event.amount).toFixed(0)}</span> -->
+                  <span style="color:#c5c2c2;font-size:14px">&nbsp;{unrealizedPnl(event.price,event.currentPrice,event.amount).toFixed(0)}</span>
+
                 {/if}
+             
               
                 {/if}
+                </span>
               <!-- </span> -->
             </td>
           {:else if column.key === "logo"}
@@ -272,9 +288,7 @@ console.log("events broken",events)
             </td>
           {:else if column.key === "size"}
             <td>{event.size}</td>
-            <td>
-              <img src="/arrow.svg" style="width:12px;position:relative;left:-12px;cursor:pointer;" on:click={() => openModal(event)}/>
-            </td>
+            
           {:else}
             <td style="text-align: {column.align || 'left'}">{event[column.key]}</td>
           {/if}

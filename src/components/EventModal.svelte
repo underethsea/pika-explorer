@@ -6,7 +6,7 @@
     export let event = {};
   
     const dispatch = createEventDispatcher();
-
+console.log("modal",event)
     const handleClose = () => {
   dispatch('close');
   isOpen = false
@@ -36,7 +36,7 @@
                 <div>Date</div>
                 <div style="text-align: right;">{event.date}</div>
                 <div>Current Price</div>
-                <div style="text-align: right;">{Commas(EightLessDecimals(event.currentPrice))}</div>
+                <div style="text-align: right;">{event.currentPrice}</div>
 
         {#if parseFloat(event.oraclePrice/1e8).toFixed(2) !== parseFloat(event.price/1e8).toFixed(2)}
         <!-- <div>Oracle Price</div>
@@ -65,7 +65,7 @@
         <div>Funding Payment</div>
         <div style="text-align: right;">{Commas(EightLessDecimals(event.fundingPayment))}</div>
         <div>Current Price</div>
-        <div style="text-align: right;">{Commas(EightLessDecimals(event.currentPrice))}</div>
+        <div style="text-align: right;">{event.currentPrice}</div>
         {/if}
         {/if}
       </div>

@@ -144,12 +144,8 @@ const totalPnl = trades.reduce((total, trade) => {
 
 }, 0); 
 
-const prices = await fetchPrices();
-const priceMap = {};
+const priceMap = await fetchPrices();
 
-prices.forEach(priceObj => {
-  priceMap[priceObj.id] = priceObj.price;
-});
 
 
 console.log("trades as productid?", trades);

@@ -36,22 +36,23 @@ const PRODUCTS = {
   10: { name: "AXS", image:"https://app.pikaprotocol.com/images/axs.png", gecko:"axie-inifinity"},
   11: { name: "UNI", image:"https://app.pikaprotocol.com/images/uni.png" , gecko: "uniswap"},
   12: { name: "OP" , image:"https://app.pikaprotocol.com/images/op.png",gecko: "optimism"},
-  13: { name: "DOGE", image:"https://app.pikaprotocol.com/images/dodge.png" },
-  14: { name: "CRV" , image:"https://app.pikaprotocol.com/images/crv.png"},
-  15: { name: "NEAR" , image:"https://app.pikaprotocol.com/images/near.png"},
-  16: { name: "ATOM" , image:"https://app.pikaprotocol.com/images/atom.png"},
+  13: { name: "DOGE", image:"https://assets.coingecko.com/coins/images/5/small/dogecoin.png?1547792256",gecko:"dogecoin" },
+  14: { name: "CRV" , image:"https://app.pikaprotocol.com/images/crv.png",gecko:"curve-dao-token"},
+  15: { name: "NEAR" , image:"https://app.pikaprotocol.com/images/near.png",gecko:"near"},
+  16: { name: "ATOM" , image:"https://app.pikaprotocol.com/images/atom.png",gecko:"cosmos-hub"},
   17: { name: "EUR" , image:"https://app.pikaprotocol.com/images/EUR.svg"},
   18: { name: "JPY", image:"https://app.pikaprotocol.com/images/JPY.png" },
   19: { name: "GBP" , image:"https://app.pikaprotocol.com/images/GBP.png"},
   20: { name: "AUD" , image:"https://app.pikaprotocol.com/images/AUD.png"},
   21: { name: "CAD", image:"https://app.pikaprotocol.com/images/CAD.png" },
-  22: { name: "BNB",image:"https://app.pikaprotocol.com/images/bnb.png" },
-  23: { name: "DYDX" , image:"https://s2.coinmarketcap.com/static/img/coins/64x64/11156.png"},
-  24: { name: "FTM" , image:"https://app.pikaprotocol.com/images/ftm.png"},
-  25: { name: "SAND", image:"https://app.pikaprotocol.com/images/sand.png" },
-  26: { name: "ARB",image:"https://app.pikaprotocol.com/images/arbitrum.png" },
-  27: {name: "PEPE", image:"https://assets.bit2me.com/assets/images/crypto-icons/v7/pepe-circle-solid-default.svg"}
+  22: { name: "BNB",image:"https://app.pikaprotocol.com/images/bnb.png" ,gecko:"bnb"},
+  23: { name: "DYDX" , image:"https://s2.coinmarketcap.com/static/img/coins/64x64/11156.png",gecko:"dydx"},
+  24: { name: "FTM" , image:"https://app.pikaprotocol.com/images/ftm.png",gecko:"fantom"},
+  25: { name: "SAND", image:"https://app.pikaprotocol.com/images/sand.png" ,gecko:"the-sandbox"},
+  26: { name: "ARB",image:"https://app.pikaprotocol.com/images/arbitrum.png" ,gecko:"arbitrum"},
+  27: {name: "PEPE", image:"https://assets.bit2me.com/assets/images/crypto-icons/v7/pepe-circle-solid-default.svg",gecko:"pepe"}
 };
+
 // 16: {
 //   symbol: "ETH",
 //   geckoID: "ethereum",

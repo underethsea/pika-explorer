@@ -23,7 +23,13 @@ export const GetGeckoPrices = async () => {
       return { id, price: priceData.usd };
     });
 
-    return productIdsWithPrice;
+    // return productIdsWithPrice;
+    const priceMap = {};
+
+productIdsWithPrice.forEach(priceObj => {
+  priceMap[priceObj.id] = priceObj.price;
+});
+return priceMap
   } catch (error) {
     console.error("Error fetching data from Coingecko API:", error);
     throw error;

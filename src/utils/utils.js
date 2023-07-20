@@ -8,12 +8,19 @@ import { PRODUCTS } from "../constants/constants.js";
   export const EightLessDecimalsPrecise = (num) => 
   {
     num = parseFloat(num) / 1e8;
+    if(num < .000001) {
+      return num.toFixed(16)
+    }
+    if(num < .01) {
+      return num.toFixed(8)
+    }
     if(num < 20000) {
         return num.toFixed(2)
     }else {return Math.round(num)}
   };
 
   export const Commas = (num) => {
+    if (num<.001){return num}
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
