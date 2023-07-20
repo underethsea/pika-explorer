@@ -10,7 +10,6 @@ console.log("modal",event)
     const handleClose = () => {
   dispatch('close');
   isOpen = false
-  
 };
   </script>
   
@@ -54,9 +53,6 @@ console.log("modal",event)
         
         <div>Close Price</div>
         <div style="text-align: right;">{Commas(EightLessDecimalsPrecise(event.price))}</div>
-       
-
-    
         <div>PNL</div>
         <div style="text-align: right;">{Commas(EightLessDecimalsPrecise(event.pnl))}</div>
         <div>Date</div>

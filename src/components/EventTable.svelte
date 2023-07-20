@@ -2,7 +2,7 @@
   export let events = [];
   export let totals = {}
   let sortOrder = null
-  import { GetProductImage, GetProduct, Commas, EightLessDecimals} from "../utils/utils.js"
+  import { GetProductImage, GetProduct, Commas, EightLessDecimals, EightLessDecimalsPrecise, Decimals} from "../utils/utils.js"
   import EventModal from "../components/EventModal.svelte";
   import ProtocolInterest from "../components/ProtocolInterest.svelte";
   import OneDay from "../components/OneDay.svelte";
@@ -146,8 +146,8 @@ console.log("events broken",events)
 
   // events = sortedEvents;
 
-  function getPnlColor() {
-    return totals.pnl < 0 ? "rgb(250, 115, 56)": "rgb(104, 226, 104)";
+  function getColor(amount) {
+    return amount < 0 ? "rgb(250, 115, 56)": "rgb(104, 226, 104)";
   }
   function refreshPage() {
   let newPath = '/';
@@ -190,15 +190,16 @@ console.log("events broken",events)
 <center>
   <h1>
    
-    Recent Pika Protocol Transactions <span style="color:{getPnlColor()};font-size:14px">
-<!--       
+    Recent Pika Protocol Transactions 
+    <!--     
+    <span style="color:{getColor()};font-size:14px">
+  
       {Commas(parseInt(totals.pnl))}</span> -->
       {#if !events[0]?.isAddress}
 <br>
       <div on:click={() => openInterestModal()} class="button">PROTOCOL INTEREST</div>&nbsp;&nbsp;&nbsp;
       <div on:click={() => openOneDay()} class="button">24HR STATS</div>
 {/if}
-</span>
     <!-- {#if !events[0]?.isAddress}
     <button on:click={toggleDiv} style="background-color: transparent; border: none;">
     AD
@@ -209,11 +210,14 @@ console.log("events broken",events)
   {#if events[0]?.isAddress}
   <span style="color:#d5d6bb">
     <a href={"https://optimistic.etherscan.io/address/" + events[0].owner} style="text-decoration:none;color:#d5d6bb" target="_blank" referrer="norefferer">
-    {events[0].owner} </a>
-    <span style="color:{getPnlColor()};font-size:14px">
-         
-            {Commas(parseInt(totals.pnl))}</span>
-  </span><br><br>
+    {events[0].owner} </a><br>
+   
+          <span style="color:#e3dfdf;font-size:12px">
+            PnL <span style="color:{getColor(totals.pnl)};font-size:15px">{Commas(parseInt(totals.pnl))}</span> &nbsp;&nbsp;
+            Fees <span style="color:rgb(250, 115, 56);font-size:15px">-{Commas(EightLessDecimalsPrecise(totals.fees))}</span> &nbsp;&nbsp;
+            Net <span style="color:{getColor(totals.pnl-(totals.fees/1e8))};font-size:15px">{Commas(Decimals(totals.pnl-(totals.fees/1e8)))}</span>
+          </span><br><br>
+          </span>
   {/if}
 
   <table>

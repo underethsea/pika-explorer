@@ -5,9 +5,7 @@ import { PRODUCTS } from "../constants/constants.js";
    
   };
 
-  export const EightLessDecimalsPrecise = (num) => 
-  {
-    num = parseFloat(num) / 1e8;
+  export const Decimals = (num) => {
     if(num < .000001) {
       return num.toFixed(16)
     }
@@ -17,6 +15,11 @@ import { PRODUCTS } from "../constants/constants.js";
     if(num < 20000) {
         return num.toFixed(2)
     }else {return Math.round(num)}
+  }
+  export const EightLessDecimalsPrecise = (num) => 
+  {
+    num = parseFloat(num) / 1e8;
+    return Decimals(num)
   };
 
   export const Commas = (num) => {

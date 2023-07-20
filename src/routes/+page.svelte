@@ -144,9 +144,15 @@ const totalPnl = trades.reduce((total, trade) => {
 
 }, 0); 
 
+const totalFees = trades.reduce((total, trade) => {
+  if (trade?.tradeFee !== null) {
+    return total + parseInt(trade.tradeFee); 
+  }
+  return total;
+
+}, 0); 
+
 const priceMap = await fetchPrices();
-
-
 
 console.log("trades as productid?", trades);
 
@@ -162,16 +168,13 @@ const tradesWithPrice = trades.map(trade => {
 // console.log(tradesWithCloseInfo)
 
 
-
-totals = { pnl: totalPnl / 1e8, trades: totalTrades, volume: totalVolume };
+totals = { pnl: totalPnl / 1e8, trades: totalTrades, volume: totalVolume, fees: totalFees };
 events = tradesWithPrice;
 
 $: {
   events;
   totals;
 }
-
-
 
 
   }
