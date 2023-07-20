@@ -6,13 +6,13 @@ import { PRODUCTS } from "../constants/constants.js";
   };
 
   export const Decimals = (num) => {
-    if(num < .000001) {
+    if(num < .000001 && num > -1) {
       return num.toFixed(16)
     }
-    if(num < .01) {
+    if(num < .01 && num > -1) {
       return num.toFixed(8)
     }
-    if(num < 20000) {
+    if(num < 20000 && num > -10000) {
         return num.toFixed(2)
     }else {return Math.round(num)}
   }
