@@ -12,7 +12,7 @@ import { PRODUCTS } from "../constants/constants.js";
     if(num < .01 && num > -1) {
       return num.toFixed(8)
     }
-    if(num < 20000 && num > -10000) {
+    if(num < 999 && num > -999) {
         return num.toFixed(2)
     }else {return Math.round(num)}
   }
