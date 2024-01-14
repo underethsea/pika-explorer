@@ -50,7 +50,31 @@ const PRODUCTS = {
   24: { name: "FTM" , image:"https://app.pikaprotocol.com/images/ftm.png",gecko:"fantom"},
   25: { name: "SAND", image:"https://app.pikaprotocol.com/images/sand.png" ,gecko:"the-sandbox"},
   26: { name: "ARB",image:"https://app.pikaprotocol.com/images/arbitrum.png" ,gecko:"arbitrum"},
-  27: {name: "PEPE", image:"https://assets.bit2me.com/assets/images/crypto-icons/v7/pepe-circle-solid-default.svg",gecko:"pepe"}
+  27: {name: "PEPE", image:"https://assets.bit2me.com/assets/images/crypto-icons/v7/pepe-circle-solid-default.svg",gecko:"pepe"},
+  28: { name: "GMX",image:"https://www.pikaprotocol.com/images/gmx.svg" ,gecko:"gmx"},
+  29: { name: "WLD",image:"https://assets.coingecko.com/coins/images/31069/standard/worldcoin.jpeg?1696529903" ,gecko:"worldcoin-wld"},
+  30: { name: "ETHBTC",image:"https://www.pikaprotocol.com/images/eth-btc.png" ,gecko:""},
+  31: { name: "MKR",image:"https://www.pikaprotocol.com/images/mkr.svg" ,gecko:"maker"},
+  32: { name: "XRP",image:"https://www.pikaprotocol.com/images/xrp.svg" ,gecko:"ripple"},
+  33: { name: "LTC",image:"https://www.pikaprotocol.com/images/ltc.svg" ,gecko:"litecoin"},
+  34: { name: "LDO",image:"https://www.pikaprotocol.com/images/ldo.svg" ,gecko:"lido-dao"},
+  35: { name: "SEI",image:"https://www.pikaprotocol.com/images/sei.png" ,gecko:"sei-network"},
+  36: { name: "APT",image:"https://www.pikaprotocol.com/images/apt.png" ,gecko:"aptos"},
+  37: { name: "RUNE",image:"https://www.pikaprotocol.com/images/rune.png" ,gecko:"thorchain"},
+  38: { name: "BCH",image:"https://www.pikaprotocol.com/images/bch.png" ,gecko:"bitcoin-cash"},
+  39: { name: "BLUR",image:"https://www.pikaprotocol.com/images/blur.png" ,gecko:"blur"},
+  40: { name: "XAU",image:"https://www.pikaprotocol.com/images/xau.svg" ,gecko:""},
+  41: { name: "XAG",image:"https://www.pikaprotocol.com/images/xag.svg" ,gecko:""},
+  42: { name: "DOT",image: "https://www.pikaprotocol.com/images/dot.svg", gecko: "polkadot" },
+  43: { name: "SUI",image: "https://www.pikaprotocol.com/images/sui.svg", gecko: "sui" },
+  44: { name: "ADA" ,image: "https://www.pikaprotocol.com/images/ada.svg", gecko: "cardano"},
+  45: { name: "TON" ,image: "https://www.pikaprotocol.com/images/ton.svg", gecko: "the-open-network"},
+  46: { name: "TIA" ,image: "https://www.pikaprotocol.com/images/tia.svg", gecko: "celestia" },
+  47: { name: "MEME"  ,image: "https://www.pikaprotocol.com/images/meme.svg", gecko: ""},
+  48: { name: "RLB"  ,image: "https://www.pikaprotocol.com/images/rlb.svg", gecko: "rollbit-coin"},
+  49: { name: "PYTH" ,image: "https://www.pikaprotocol.com/images/pyth.svg", gecko: "pyth-network" },
+  50: { name: "ORDI"  ,image: "https://www.pikaprotocol.com/images/ordi.svg", gecko: "ordinals"}
+  
 };
 
 // 16: {
