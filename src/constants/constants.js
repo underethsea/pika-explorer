@@ -69,11 +69,11 @@ const PRODUCTS = {
   43: { name: "SUI",image: "https://www.pikaprotocol.com/images/sui.svg", gecko: "sui" },
   44: { name: "ADA" ,image: "https://www.pikaprotocol.com/images/ada.svg", gecko: "cardano"},
   45: { name: "TON" ,image: "https://www.pikaprotocol.com/images/ton.svg", gecko: "the-open-network"},
-  46: { name: "TIA" ,image: "https://www.pikaprotocol.com/images/tia.svg", gecko: "celestia" },
-  47: { name: "MEME"  ,image: "https://www.pikaprotocol.com/images/meme.svg", gecko: ""},
+  46: { name: "TIA" ,image: "https://www.pikaprotocol.com/images/tia.png", gecko: "celestia" },
+  47: { name: "MEME"  ,image: "https://www.pikaprotocol.com/images/meme.png", gecko: "memecoin-2"},
   48: { name: "RLB"  ,image: "https://www.pikaprotocol.com/images/rlb.svg", gecko: "rollbit-coin"},
-  49: { name: "PYTH" ,image: "https://www.pikaprotocol.com/images/pyth.svg", gecko: "pyth-network" },
-  50: { name: "ORDI"  ,image: "https://www.pikaprotocol.com/images/ordi.svg", gecko: "ordinals"}
+  49: { name: "PYTH" ,image: "https://www.pikaprotocol.com/images/pyth.png", gecko: "pyth-network" },
+  50: { name: "ORDI"  ,image: "https://www.pikaprotocol.com/images/ordi.png", gecko: "ordinals"}
   
 };
 
