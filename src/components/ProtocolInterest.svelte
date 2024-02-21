@@ -14,7 +14,7 @@
 async function GetPositions() {
   const maxPageSize = 900;
   const subgraphURL =
-    "https://api.thegraph.com/subgraphs/name/ethandev0/pikaperpv4_optimism";
+    "https://api.thegraph.com/subgraphs/name/ethandev0/pikaperpv4_new/";
   let data;
   let results = [];
 

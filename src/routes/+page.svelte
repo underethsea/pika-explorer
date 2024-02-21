@@ -46,7 +46,7 @@ return prices
   let events = [];
   let totals = {}
   const oneDayAgo = parseInt((Date.now()/1000) -(24*60*60*3))
-  const subgraphURL = "https://api.thegraph.com/subgraphs/name/ethandev0/pikaperpv4_optimism"
+  const subgraphURL = "https://api.thegraph.com/subgraphs/name/ethandev0/pikaperpv4_new/"
 //  https://api.thegraph.com/subgraphs/name/ethandev0/pikaperpv3_optimism"
 
   async function fetchGraphEvents(addressToQuery) {

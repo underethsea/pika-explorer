@@ -17,7 +17,7 @@ async function OneDay() {
   const oneDayAgo = parseInt(Date.now() / 1000 - 24 * 60 * 60);
 
   const subgraphURL =
-    "https://api.thegraph.com/subgraphs/name/ethandev0/pikaperpv4_optimism";
+    "https://api.thegraph.com/subgraphs/name/ethandev0/pikaperpv4_new/";
   let data;
   let transactionResults = [];
   while (true) {
